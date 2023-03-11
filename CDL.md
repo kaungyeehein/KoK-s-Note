@@ -14,11 +14,11 @@
 - Module 2: Data consolidation and analytics
 - Module 3: Innovation with machine learning
 
-[`Data Lake`](CDL.md#data-lake), 
-[`Data Warehouse`](CDL.md#data-warehouse), 
-[`Streaming Analytics`](CDL.md#streaming-analytics), 
-[`Business Intelligence`](CDL.md#business-intelligence),
-[`Machine Learning`](CDL.md#machine-learning)
+[`Data Lake`](#data-lake), 
+[`Data Warehouse`](#data-warehouse), 
+[`Streaming Analytics`](#streaming-analytics), 
+[`Business Intelligence`](#business-intelligence),
+[`Machine Learning`](#machine-learning)
 
 ## Course 3
 ### Infrastructure and Application Modernization with Google Cloud
@@ -43,24 +43,24 @@
 - Can store `Structured`, `Semi-structured` and `Unstructured`
 - Can perform `Any Data` from `Any System` at `Any Speed` in `Real-time` or `Batch mode` (eg. big data for AI, ML)
 - Can analyze data using `SQL`, `Python`, `R`, or `any other language, third-party`
-- Related (`BigQuery`), `Dataproc`, `Dataflow`, `Cloud Data Fusion` and `Cloud Storage`
+- Related [`BigQuery`](#bigquery), `Dataproc`, [`Dataflow`](#dataflow), `Cloud Data Fusion` and `Cloud Storage`
 
 ### Data Warehouse
 
 - Can store `Structured` and `Semi-structured` (current and historical)
 - Can perform `Analysis` (Big-data) and `Reporting` (visualization) (eg. ad-hoc analysis, monthly, tracking, traffic, real-time, Streaming report, Data mining, science)
-- Related `BigQuery`, `Dataproc` and `Dataflow`
+- Related [`BigQuery`](#bigquery), `Dataproc` and [`Dataflow`](#dataflow)
 
 ### Streaming Analytics
 
 - Data in `Small sizes` (often in kilobytes) in a `Continuous Flow` (real-time insights)
-- Related `Pub/Sub`, `Dataflow`, and `BigQuery`
+- Related `Pub/Sub`, [`Dataflow`](#dataflow), and [`BigQuery`](#bigquery)
 
 ### Business Intelligence
 
 - BI `Collect` and `Analyze data`
 - Categories `On-premises`, `Open source` and `Cloud-based`
-- Related `BigQuery` and `Looker`
+- Related [`BigQuery`](#bigquery) and `Looker`
 
 ### Machine Learning
 
@@ -72,11 +72,13 @@
 
 - `Serverless` and `Multi Clouds` with `BI`, `ML` and `AI`
 - Can perform  `Structured`, `Semi-structured` and `Unstructured`
-- Related `SQL`, `Vertex AI`, `Dataflow`, `Looker`
+- Related `SQL`, `Vertex AI`, [`Dataflow`](#dataflow), `Looker`
 
-## Dataflow
+### Dataflow
 
 - `Stream` and `Batch` data processing with `Serverless`
+- Feature `Autoscaling`, `Stream analytics`, `Real-time AI`
+- Related `Python`, `SQL`, `Apache Beam SDK`, `TensorFlow`, `Pub/Sub`, [`BigQuery`](#bigquery), `IoT platform`
 
 ---
 
@@ -90,3 +92,4 @@
 - Continuous Integration (CI)
 - Continuous Delivery (CD)
 - Continuous Training (CT)
+- Flexible Resource Scheduling (FlexRS)
