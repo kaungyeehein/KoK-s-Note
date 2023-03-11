@@ -40,7 +40,7 @@
 
 ### Data Lake
 
-- Can store `structured`, `semistructured` and `unstructured`
+- Can store `structured`, `semi-structured` and `unstructured`
 - Can perform `any data` from `any system` at `any speed` in `real time` or `batch mode` (eg. big data for AI, ML)
 - Can analyze data using `SQL`, `Python`, `R`, or `any other language, third-party`
 - Related `BigQuery`, `Dataproc`, `Dataflow`, `Cloud Data Fusion` and `Cloud Storage`
@@ -67,6 +67,12 @@
 - Subset of artificial intelligence
 - Autonomously learn and improve using `neural networks` and `deep learning`
 - Related `AI Hub`, `AI Platform`, `AI Building BLocks`, `AI Infrastructure`, `Cloud TPU`, `TensorFlow` and `Vertex AI`
+
+### BigQuery
+
+- `Serverless` and `Multi Clouds` with `BI`, `ML` and `AI`
+- Can perform  `structured`, `semi-structured` and `unstructured`
+- Related `SQL`, `Vertex AI`, `Dataflow`, `Looker`
 
 ---
 
