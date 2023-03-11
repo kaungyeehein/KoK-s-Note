@@ -14,7 +14,8 @@
 - Module 2: Data consolidation and analytics
 - Module 3: Innovation with machine learning
 
-`Data Lake`, `Data Warehouse`
+[`Data Lake`](CDL.md#data-lake), 
+[`Data Warehouse`](CDL.md#data-warehouse)
 
 ## Course 3
 ### Infrastructure and Application Modernization with Google Cloud
