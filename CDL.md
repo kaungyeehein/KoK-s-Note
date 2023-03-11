@@ -15,7 +15,8 @@
 - Module 3: Innovation with machine learning
 
 [`Data Lake`](CDL.md#data-lake), 
-[`Data Warehouse`](CDL.md#data-warehouse)
+[`Data Warehouse`](CDL.md#data-warehouse),
+[`Streaming Analytics`](CDL.md#streaming-analytics)
 
 ## Course 3
 ### Infrastructure and Application Modernization with Google Cloud
@@ -42,4 +43,9 @@
 ## Data Warehouse
 
 - Can store `structured` and `semi-structured` (current and historical)
-- Can perform `analysis` (Big-data) and `reporting` (visualization) (eg. ad hoc analysis, monthly, tracking, traffic, real-time, Streaming report, Data mining, science)
+- Can perform `analysis` (Big-data) and `reporting` (visualization) (eg. ad-hoc analysis, monthly, tracking, traffic, real-time, Streaming report, Data mining, science)
+
+## Streaming Analytics
+
+- Data in `small sizes` (often in kilobytes) in a `continuous flow` (real-time insights)
+- Built on `Pub/Sub`, `Dataflow`, and `BigQuery`
