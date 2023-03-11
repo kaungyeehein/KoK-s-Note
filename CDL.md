@@ -17,7 +17,8 @@
 [`Data Lake`](CDL.md#data-lake), 
 [`Data Warehouse`](CDL.md#data-warehouse), 
 [`Streaming Analytics`](CDL.md#streaming-analytics), 
-[`Business Intelligence`](CDL.md#business-intelligence)
+[`Business Intelligence`](CDL.md#business-intelligence),
+[`Machine Learning`](CDL.md#machine-learning)
 
 ## Course 3
 ### Infrastructure and Application Modernization with Google Cloud
@@ -58,3 +59,9 @@
 - BI `collect` and `analyze data`
 - Categories `On-premises`, `Open source` and `Cloud-based`
 - Related `BigQuery` and `Looker`
+
+## Machine Learning
+
+- Subset of artificial intelligence
+- Autonomously learn and improve using `neural networks` and `deep learning`
+- Related `AI Hub`, `AI Platform`, `AI Building BLocks`, `AI Infrastructure`, `Cloud TPU` and `Vertex AI`
