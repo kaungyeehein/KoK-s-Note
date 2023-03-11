@@ -15,8 +15,9 @@
 - Module 3: Innovation with machine learning
 
 [`Data Lake`](CDL.md#data-lake), 
-[`Data Warehouse`](CDL.md#data-warehouse),
-[`Streaming Analytics`](CDL.md#streaming-analytics)
+[`Data Warehouse`](CDL.md#data-warehouse), 
+[`Streaming Analytics`](CDL.md#streaming-analytics), 
+[`Business Intelligence](CDL.md#business-intelligence)
 
 ## Course 3
 ### Infrastructure and Application Modernization with Google Cloud
@@ -51,3 +52,9 @@
 
 - Data in `small sizes` (often in kilobytes) in a `continuous flow` (real-time insights)
 - Related `Pub/Sub`, `Dataflow`, and `BigQuery`
+
+## Business Intelligence
+
+- BI `collect` and `analyze data`
+- Categories `On-premises`, `Open source` and `Cloud-based`
+- Related `BigQuery` and `Looker`
