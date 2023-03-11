@@ -39,13 +39,15 @@
 - Can store `structured`, `semistructured` and `unstructured`
 - Can perform `any data` from `any system` at `any speed` in `real time` or `batch mode` (eg. big data for AI, ML)
 - Can analyze data using `SQL`, `Python`, `R`, or `any other language, third-party`
+- Related `BigQuery`, `Dataproc`, `Dataflow`, `Cloud Data Fusion` and `Cloud Storage`
 
 ## Data Warehouse
 
 - Can store `structured` and `semi-structured` (current and historical)
 - Can perform `analysis` (Big-data) and `reporting` (visualization) (eg. ad-hoc analysis, monthly, tracking, traffic, real-time, Streaming report, Data mining, science)
+- Related `BigQuery`, `Dataproc` and `Dataflow`
 
 ## Streaming Analytics
 
 - Data in `small sizes` (often in kilobytes) in a `continuous flow` (real-time insights)
-- Built on `Pub/Sub`, `Dataflow`, and `BigQuery`
+- Related `Pub/Sub`, `Dataflow`, and `BigQuery`
