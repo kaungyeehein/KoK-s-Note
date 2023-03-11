@@ -66,12 +66,17 @@
 
 - Subset of artificial intelligence
 - Autonomously learn and improve using `neural networks` and `deep learning`
-- Related `AI Hub`, `AI Platform`, `AI Building BLocks`, `AI Infrastructure`, `Cloud TPU` and `Vertex AI`
+- Related `AI Hub`, `AI Platform`, `AI Building BLocks`, `AI Infrastructure`, `Cloud TPU`, `TensorFlow` and `Vertex AI`
 
 ---
 
-## Short Text
+### Short Text
 
 - Enterprise Data Warehouse (EDW)
 - Extract, Transform, Load (ETL)
 - Extract, Load, Transform (ELT)
+- Cloud Identity and Access Management (IAM)
+- Personally Identifiable Information (PII)
+- Continuous Integration (CI)
+- Continuous Delivery (CD)
+- Continuous Training (CT)
