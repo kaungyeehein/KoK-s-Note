@@ -17,7 +17,7 @@
 [`Data Lake`](CDL.md#data-lake), 
 [`Data Warehouse`](CDL.md#data-warehouse), 
 [`Streaming Analytics`](CDL.md#streaming-analytics), 
-[`Business Intelligence](CDL.md#business-intelligence)
+[`Business Intelligence`](CDL.md#business-intelligence)
 
 ## Course 3
 ### Infrastructure and Application Modernization with Google Cloud
