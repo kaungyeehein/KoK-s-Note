@@ -7,7 +7,7 @@
 - Module 2: Digital transformation with Google Cloud
 - Module 3: Scaling the innovation mindset
 
-## ourse 2
+## Course 2
 ### Innovating with Data and Google Cloud
 
 - Module 1: The value of data
@@ -42,4 +42,4 @@
 ## Data Warehouse
 
 - Can store `structured` and `semi-structured` (current and historical)
-- Can perform `analysis` and `reporting` (eg. ad hoc analysis, monthly report, tracking traffic report)
+- Can perform `analysis` (Big-data) and `reporting` (visualization) (eg. ad hoc analysis, monthly, tracking, traffic, real-time, Streaming report, Data mining, science)
