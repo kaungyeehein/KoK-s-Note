@@ -43,7 +43,7 @@
 - Can store `Structured`, `Semi-structured` and `Unstructured`
 - Can perform `Any Data` from `Any System` at `Any Speed` in `Real-time` or `Batch mode` (eg. big data for AI, ML)
 - Can analyze data using `SQL`, `Python`, `R`, or `any other language, third-party`
-- Related [`BigQuery`](#bigquery), [`Dataproc`](#dataproc), [`Dataflow`](#dataflow), `Cloud Data Fusion` and `Cloud Storage`
+- Related [`BigQuery`](#bigquery), [`Dataproc`](#dataproc), [`Dataflow`](#dataflow), [`Cloud Data Fusion`](#cloud-data-fusion) and `Cloud Storage`
 
 ### Data Warehouse
 
@@ -85,7 +85,14 @@
 - Fully managed and automated `Big Data` open source software
 - `Serverless`, or `Manage Clusters` with with `Kubernetes`
 - `Apache Hadoop`, `Apache Spark`, `Apache Flink`, `Presto`, and 30+ open source tools and frameworks
-- Related `Vertex AI`, `BigQuery`, `Dataplex`, `Cloud Spanner`, `Pub/Sub` and `Data Fusion` 
+- Related `Vertex AI`, [`BigQuery`](#bigquery), [`Data Lake`](#data-lake), `Dataplex`, `Cloud Spanner`, `Pub/Sub` and [`Cloud Data Fusion`](#cloud-data-fusion) 
+
+### Cloud Data Fusion
+
+Fully managed, cloud-native data integration at any scale.
+- Code-free deployment (drag-and-drop interface) of ETL/ELT data pipelines
+- `Serverless` and pre-built 150+ library for batch and real-time
+- Related [`Data Lake`](#data-lake)
 
 ---
 
