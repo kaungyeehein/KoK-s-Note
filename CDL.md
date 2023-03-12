@@ -114,10 +114,25 @@ Easy to build insight-powered workflows and applications
 - `Looker’s SDK`, `APIs`, and `Looker Blocks`
 - Feature `LookML` (SQL), `Looker Studio`, `Looker API` (RESTful) and `Looker Blocks` (Template)
 
+### Cloud SQL
+
+- Relational Database service with `MySQL`, `PostgreSQL` and `SQL Server`
+- `Fully Managed`
+
 ### Cloud Spanner
 
 - Relational Database service with `GoogleSQL` and `PostgreSQL`
 - `Fully Managed`, `Autoscaling` and `High Availability`
+
+### AlloyDB
+
+- Relational Database service with `PostgreSQL` compatible database
+- `Fully Managed`, `Superior performance, availability, and scale`
+
+### Cloud Bigtable
+
+- NoSQL database
+- `Fully Managed` and `High Performant`
 
 ---
 
