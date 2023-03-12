@@ -132,7 +132,12 @@ Easy to build insight-powered workflows and applications
 ### Cloud Bigtable
 
 - NoSQL database
-- `Fully Managed` and `High Performant`
+- `Fully Managed`, `High Performance`, `High Scalability`
+
+### Firestore
+
+- NoSQL database
+- `Autoscaling`, `High Performance`, `Easy to use`, `Real-time`, `Mobile App`
 
 ---
 
