@@ -43,7 +43,7 @@
 - Can store `Structured`, `Semi-structured` and `Unstructured`
 - Can perform `Any Data` from `Any System` at `Any Speed` in `Real-time` or `Batch mode` (eg. big data for AI, ML)
 - Can analyze data using `SQL`, `Python`, `R`, or `any other language, third-party`
-- Related [`BigQuery`](#bigquery), [`Dataproc`](#dataproc), [`Dataflow`](#dataflow), [`Cloud Data Fusion`](#cloud-data-fusion) and `Cloud Storage`
+- Related [`BigQuery`](#bigquery), [`Dataproc`](#dataproc), [`Dataflow`](#dataflow), [`Cloud Data Fusion`](#cloud-data-fusion) and [`Cloud Storage`](#cloud-storage)
 
 ### Data Warehouse
 
@@ -97,7 +97,8 @@ Fully managed, cloud-native data integration at any scale.
 ### Cloud Storage
 
 - Can store `Unstructured` data
-- Feature `Object Lifecycle Management` (OLM) and `Autoclass`
+- Options `Standard` (Hot data), `Nearline` (30 Days), `Coldline` (90 Days) and `Archival` (365 Days)
+- Feature `Object Lifecycle Management` (OLM) and `Autoclass` for static content or static media (audio or video)
 - Related [`Data Warehouse`](#data-warehouse), [`BigQuery`](#bigquery), [`Dataproc`](#dataproc), `ML` and `AI`
 
 ---
