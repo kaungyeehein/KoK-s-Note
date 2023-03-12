@@ -85,7 +85,7 @@
 - Fully managed and automated `Big Data` open source software
 - `Serverless`, or `Manage Clusters` with with `Kubernetes`
 - `Apache Hadoop`, `Apache Spark`, `Apache Flink`, `Presto`, and 30+ open source tools and frameworks
-- Related `Vertex AI`, [`BigQuery`](#bigquery), [`Data Lake`](#data-lake), `Dataplex`, `Cloud Spanner`, [`Pub/Sub`](#pubsub) and [`Cloud Data Fusion`](#cloud-data-fusion) 
+- Related `Vertex AI`, [`BigQuery`](#bigquery), [`Data Lake`](#data-lake), `Dataplex`, [`Cloud Spanner`](#cloud-spanner), [`Pub/Sub`](#pubsub) and [`Cloud Data Fusion`](#cloud-data-fusion) 
 
 ### Cloud Data Fusion
 
@@ -113,6 +113,11 @@ Easy to build insight-powered workflows and applications
 - `Real-time` view of your data, from across `Multiple Clouds`
 - `Looker’s SDK`, `APIs`, and `Looker Blocks`
 - Feature `LookML` (SQL), `Looker Studio`, `Looker API` (RESTful) and `Looker Blocks` (Template)
+
+### Cloud Spanner
+
+- Relational Database service with `GoogleSQL` and `PostgreSQL`
+- `Fully Managed`, `Autoscaling` and `High Availability`
 
 ---
 
