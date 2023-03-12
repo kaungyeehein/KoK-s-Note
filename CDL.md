@@ -43,13 +43,13 @@
 - Can store `Structured`, `Semi-structured` and `Unstructured`
 - Can perform `Any Data` from `Any System` at `Any Speed` in `Real-time` or `Batch mode` (eg. big data for AI, ML)
 - Can analyze data using `SQL`, `Python`, `R`, or `any other language, third-party`
-- Related [`BigQuery`](#bigquery), `Dataproc`, [`Dataflow`](#dataflow), `Cloud Data Fusion` and `Cloud Storage`
+- Related [`BigQuery`](#bigquery), [`Dataproc`](#dataproc), [`Dataflow`](#dataflow), `Cloud Data Fusion` and `Cloud Storage`
 
 ### Data Warehouse
 
 - Can store `Structured` and `Semi-structured` (current and historical)
 - Can perform `Analysis` (Big-data) and `Reporting` (visualization) (eg. ad-hoc analysis, monthly, tracking, traffic, real-time, Streaming report, Data mining, science)
-- Related [`BigQuery`](#bigquery), `Dataproc` and [`Dataflow`](#dataflow)
+- Related [`BigQuery`](#bigquery), [`Dataproc`](#dataproc) and [`Dataflow`](#dataflow)
 
 ### Streaming Analytics
 
@@ -80,10 +80,20 @@
 - Feature `Autoscaling`, `Stream analytics`, `Real-time AI`
 - Related `Python`, `SQL`, `Apache Beam SDK`, `TensorFlow`, `Pub/Sub`, [`BigQuery`](#bigquery), `IoT platform`
 
+### Dataproc
+
+- Fully managed and automated `Big Data` open source software
+- `Serverless`, or `Manage Clusters` with with `Kubernetes`
+- `Apache Hadoop`, `Apache Spark`, `Apache Flink`, `Presto`, and 30+ open source tools and frameworks
+- Related `Vertex AI`, `BigQuery`, `Dataplex`, `Cloud Spanner`, `Pub/Sub` and `Data Fusion` 
+
 ---
 
 ### Short Text
 
+- Business Intelligence (BI)
+- Machine Learning (ML)
+- Artificial Intelligence (AI)
 - Enterprise Data Warehouse (EDW)
 - Extract, Transform, Load (ETL)
 - Extract, Load, Transform (ELT)
@@ -93,3 +103,4 @@
 - Continuous Delivery (CD)
 - Continuous Training (CT)
 - Flexible Resource Scheduling (FlexRS)
+- Google Kubernetes Engine (GKE)
