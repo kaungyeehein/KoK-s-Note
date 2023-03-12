@@ -7,7 +7,8 @@
 - Module 2: Digital transformation with Google Cloud
 - Module 3: Scaling the innovation mindset
 
-[`Compute Engine`](#compute-engine)
+[`Compute Engine`](#compute-engine),
+[`Google Kubernetes Engine`](#google-kubernetes-engine)
 
 ## Course 2
 ### Innovating with Data and Google Cloud
@@ -48,6 +49,11 @@
 - Ultra-high memory (M2, M1) for `SAP HANA`
 - Compute-intensive workloads (C3, C2, C2D) for `Game Server`, and `Latency-sensitive API`
 - Most demanding applications and workloads (A2) for `ML`
+
+### Google Kubernetes Engine
+
+Deploy, manage, and scale containerized applications
+- `Fully managed`, `Autopilot`, `4-way Autoscaling`, `Multi-cluster`
 
 ### Data Lake
 
