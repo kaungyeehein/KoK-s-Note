@@ -94,6 +94,12 @@ Fully managed, cloud-native data integration at any scale.
 - `Serverless` and pre-built 150+ library for batch and real-time
 - Related [`Data Lake`](#data-lake)
 
+### Cloud Storage
+
+- Can store `Unstructured` data
+- Feature `Object Lifecycle Management` (OLM) and `Autoclass`
+- Related [`Data Warehouse`](#data-warehouse), [`BigQuery`](#bigquery), [`Dataproc`](#dataproc), `ML` and `AI`
+
 ---
 
 ### Short Text
