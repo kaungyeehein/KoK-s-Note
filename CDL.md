@@ -54,7 +54,7 @@
 ### Streaming Analytics
 
 - Data in `Small sizes` (often in kilobytes) in a `Continuous Flow` (real-time insights)
-- Related `Pub/Sub`, [`Dataflow`](#dataflow), and [`BigQuery`](#bigquery)
+- Related [`Pub/Sub`](#pub-sub), [`Dataflow`](#dataflow), and [`BigQuery`](#bigquery)
 
 ### Business Intelligence
 
@@ -78,14 +78,14 @@
 
 - `Stream` and `Batch` data processing with `Serverless`
 - Feature `Autoscaling`, `Stream analytics`, `Real-time AI`
-- Related `Python`, `SQL`, `Apache Beam SDK`, `TensorFlow`, `Pub/Sub`, [`BigQuery`](#bigquery), `IoT platform`
+- Related `Python`, `SQL`, `Apache Beam SDK`, `TensorFlow`, [`Pub/Sub`](#pub-sub), [`BigQuery`](#bigquery), `IoT platform`
 
 ### Dataproc
 
 - Fully managed and automated `Big Data` open source software
 - `Serverless`, or `Manage Clusters` with with `Kubernetes`
 - `Apache Hadoop`, `Apache Spark`, `Apache Flink`, `Presto`, and 30+ open source tools and frameworks
-- Related `Vertex AI`, [`BigQuery`](#bigquery), [`Data Lake`](#data-lake), `Dataplex`, `Cloud Spanner`, `Pub/Sub` and [`Cloud Data Fusion`](#cloud-data-fusion) 
+- Related `Vertex AI`, [`BigQuery`](#bigquery), [`Data Lake`](#data-lake), `Dataplex`, `Cloud Spanner`, [`Pub/Sub`](#pub-sub) and [`Cloud Data Fusion`](#cloud-data-fusion) 
 
 ### Cloud Data Fusion
 
@@ -100,6 +100,12 @@ Fully managed, cloud-native data integration at any scale.
 - Options `Standard` (Hot data), `Nearline` (30 Days), `Coldline` (90 Days) and `Archival` (365 Days)
 - Feature `Object Lifecycle Management` (OLM) and `Autoclass` for static content or static media (audio or video)
 - Related [`Data Warehouse`](#data-warehouse), [`BigQuery`](#bigquery), [`Dataproc`](#dataproc), `ML` and `AI`
+
+### Pub/Sub
+
+Scalable messaging or queue system (pull and push modes)
+- Streaming into `BigQuery`, `Data Lakes` with `Dataflow`
+- Related `Cloud Functions`, `App Engine`, `Cloud Run`
 
 ---
 
