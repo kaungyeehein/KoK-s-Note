@@ -60,7 +60,7 @@
 
 - BI `Collect` and `Analyze data`
 - Categories `On-premises`, `Open source` and `Cloud-based`
-- Related [`BigQuery`](#bigquery) and `Looker`
+- Related [`BigQuery`](#bigquery) and [`Looker`](#looker)
 
 ### Machine Learning
 
@@ -72,7 +72,7 @@
 
 - `Serverless` and `Multi Clouds` with `BI`, `ML` and `AI`
 - Can perform  `Structured`, `Semi-structured` and `Unstructured`
-- Related `SQL`, `Vertex AI`, [`Dataflow`](#dataflow), `Looker`
+- Related `SQL`, `Vertex AI`, [`Dataflow`](#dataflow), [`Looker`](#looker)
 
 ### Dataflow
 
@@ -107,6 +107,13 @@ Scalable messaging or queue system (pull and push modes)
 - Streaming into `BigQuery`, `Data Lakes` with `Dataflow`
 - Related `Cloud Functions`, `App Engine`, `Cloud Run`
 
+### Looker
+
+Easy to build insight-powered workflows and applications
+- `Real-time` view of your data, from across `Multiple Clouds`
+- `Looker’s SDK`, `APIs`, and `Looker Blocks`
+- Feature `LookML` (SQL), `Looker Studio`, `Looker API` (RESTful) and `Looker Blocks` (Template)
+
 ---
 
 ### Short Text
@@ -124,3 +131,4 @@ Scalable messaging or queue system (pull and push modes)
 - Continuous Training (CT)
 - Flexible Resource Scheduling (FlexRS)
 - Google Kubernetes Engine (GKE)
+- Looker’s Modeling Language (LookerML)
