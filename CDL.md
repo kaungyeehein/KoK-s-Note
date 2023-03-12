@@ -7,6 +7,8 @@
 - Module 2: Digital transformation with Google Cloud
 - Module 3: Scaling the innovation mindset
 
+[`Compute Engine`](#compute-engine)
+
 ## Course 2
 ### Innovating with Data and Google Cloud
 
@@ -37,6 +39,15 @@
 ---
 
 ## Google Products
+
+### Compute Engine
+
+- Virtual Machines (`VM`), `GPU`, `TPU`, `Disk`
+- Scale out workloads (T2A, T2D) is `Lowest Cost`
+- General purpose workloads (E2, N2, N2D, N1) for `Development and Testing`
+- Ultra-high memory (M2, M1) for `SAP HANA`
+- Compute-intensive workloads (C3, C2, C2D) for `Game Server`, and `Latency-sensitive API`
+- Most demanding applications and workloads (A2) for `ML`
 
 ### Data Lake
 
