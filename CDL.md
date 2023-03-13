@@ -62,7 +62,7 @@ Deploy, manage, and scale containerized applications
 
 ### App Engine
 
-- Run on `VM`, `Container`, `Serverless`, `Statefull`
+- Run on `VM`, `Container`, `Serverless`
 - `Zero server management` and `Zero configuration deployments`
 - `Fully Managed`, `Auto-scaling`, and `Manual scaling`, `24 hr timeout`
 - Build your application in `Node.js`, `Java`, `Ruby`, `C#`, `Go`, `Python`, or `PHP` (Popular programming languages) 
