@@ -9,8 +9,8 @@
 
 [`Compute Engine`](#compute-engine),
 [`Google Kubernetes Engine`](#google-kubernetes-engine),
-[`App Engine`](#app-engine),
 [`Cloud Run`](#cloud-run),
+[`App Engine`](#app-engine),
 [`Cloud Functions`](#cloud-functions),
 [`Cloud CDN`](#cloud_cdn),
 [`Anthos`](#anthos)
@@ -60,18 +60,18 @@
 Deploy, manage, and scale containerized applications
 - `Fully managed`, `Autopilot`, `4-way Autoscaling`, `Multi-cluster`
 
-### App Engine
-
-- Run on `VM`, `Container`, `Serverless`
-- `Zero server management` and `Zero configuration deployments`
-- `Fully Managed`, `Auto-scaling`, and `Manual scaling`, `24 hr timeout`
-- Build your application in `Node.js`, `Java`, `Ruby`, `C#`, `Go`, `Python`, or `PHP` (Popular programming languages) 
-
 ### Cloud Run
 
-- Faster than [`App Engine`](#app-engine), `Container`, `Serverless`, `Stateless`
+- Faster than [`App Engine`](#app-engine), `Container`, `Serverless`, `Clusterless`
 - `Fully Managed`, `Auto-scales` (automatically scale to 0 when not in use), `15 min timeout`
 - Build and deploy scalable `Containerized Apps` written in any language (including `Go`, `Python`, `Java`, `Node.js`, `.NET`, and `Ruby`)
+
+### App Engine
+
+- Run App on `VM`, `Container`
+- `Zero server management` and `Zero configuration deployments` (`Serverless`)
+- `Fully Managed`, `Auto-scaling`, and `Manual scaling`, `24 hr timeout`
+- Build your application in `Node.js`, `Java`, `Ruby`, `C#`, `Go`, `Python`, or `PHP` (Popular programming languages) 
 
 ### Cloud Functions
 
