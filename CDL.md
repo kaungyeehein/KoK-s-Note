@@ -11,7 +11,7 @@
 [`Google Kubernetes Engine`](#google-kubernetes-engine),
 [`App Engine`](#app-engine),
 [`Cloud Run`](#cloud-run),
-[`Cloud Functions`](@cloud-functions),
+[`Cloud Functions`](#cloud-functions),
 [`Cloud CDN`](#cloud_cdn),
 [`Anthos`](#anthos)
 
