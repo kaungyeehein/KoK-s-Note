@@ -9,6 +9,9 @@
 
 [`Compute Engine`](#compute-engine),
 [`Google Kubernetes Engine`](#google-kubernetes-engine),
+[`App Engine`](#app-engine),
+[`Cloud Run`](#cloud-run),
+[`Cloud Functions`](@cloud-functions),
 [`Cloud CDN`](#cloud_cdn),
 [`Anthos`](#anthos)
 
@@ -56,6 +59,23 @@
 
 Deploy, manage, and scale containerized applications
 - `Fully managed`, `Autopilot`, `4-way Autoscaling`, `Multi-cluster`
+
+### App Engine
+
+- Run on `VM`, `Container`, `Serverless`, `Statefull`
+- `Zero server management` and `Zero configuration deployments`
+- `Fully Managed`, `Auto-scaling`, and `Manual scaling`, `24 hr timeout`
+- Build your application in `Node.js`, `Java`, `Ruby`, `C#`, `Go`, `Python`, or `PHP` (Popular programming languages) 
+
+### Cloud Run
+
+- Faster than [`App Engine`](#app-engine), `Container`, `Serverless`, `Stateless`
+- `Fully Managed`, `Auto-scales` (automatically scale to 0 when not in use), `15 min timeout`
+- Build and deploy scalable `Containerized Apps` written in any language (including `Go`, `Python`, `Java`, `Node.js`, `.NET`, and `Ruby`)
+
+### Cloud Functions
+
+- `Lightweight`, `Event Driving`, `Serverless`
 
 ### Cloud CDN
 
@@ -177,6 +197,7 @@ Easy to build insight-powered workflows and applications
 - Business Intelligence (BI)
 - Machine Learning (ML)
 - Artificial Intelligence (AI)
+- Natural Language Processing (NLP)
 - Enterprise Data Warehouse (EDW)
 - Extract, Transform, Load (ETL)
 - Extract, Load, Transform (ELT)
