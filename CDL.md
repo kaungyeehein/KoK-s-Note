@@ -9,7 +9,8 @@
 
 [`Compute Engine`](#compute-engine),
 [`Google Kubernetes Engine`](#google-kubernetes-engine),
-[`Cloud CDN`](#cloud_cdn)
+[`Cloud CDN`](#cloud_cdn),
+[`Anthos`](#anthos)
 
 ## Course 2
 ### Innovating with Data and Google Cloud
@@ -59,7 +60,12 @@ Deploy, manage, and scale containerized applications
 ### Cloud CDN
 
 Content Delivery Network is deliver Web and video content with global scale and reach.
-- `Fast`, `Reliable`
+- `Fast`, `Reliable`, `Caching`
+
+### Anthos
+
+Anthos is the leading cloud-centric container platform
+- `GCP`, `GDC`, `On-Premises`, `Multi-Cloud` (AWS, Azure)
 
 ### Data Lake
 
@@ -166,6 +172,8 @@ Easy to build insight-powered workflows and applications
 
 ### Short Text
 
+- Google Cloud Product (GCP)
+- Google Distributed Cloud (GDC)
 - Business Intelligence (BI)
 - Machine Learning (ML)
 - Artificial Intelligence (AI)
