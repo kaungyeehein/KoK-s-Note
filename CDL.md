@@ -8,7 +8,8 @@
 - Module 3: Scaling the innovation mindset
 
 [`Compute Engine`](#compute-engine),
-[`Google Kubernetes Engine`](#google-kubernetes-engine)
+[`Google Kubernetes Engine`](#google-kubernetes-engine),
+[`Cloud CDN`](#cloud_cdn)
 
 ## Course 2
 ### Innovating with Data and Google Cloud
@@ -54,6 +55,11 @@
 
 Deploy, manage, and scale containerized applications
 - `Fully managed`, `Autopilot`, `4-way Autoscaling`, `Multi-cluster`
+
+### Cloud CDN
+
+Content Delivery Network is deliver Web and video content with global scale and reach.
+- `Fast`, `Reliable`
 
 ### Data Lake
 
