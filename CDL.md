@@ -69,7 +69,7 @@ Anthos is the leading cloud-centric container platform
 
 ### Data Lake
 
-- Can store `Structured`, `Semi-structured` and `Unstructured`
+- Can store `Structured`, `Semi-structured` and `Unstructured` (No Size Limits)
 - Can perform `Any Data` from `Any System` at `Any Speed` in `Real-time` or `Batch mode` (eg. big data for AI, ML)
 - Can analyze data using `SQL`, `Python`, `R`, or `any other language, third-party`
 - Related [`BigQuery`](#bigquery), [`Dataproc`](#dataproc), [`Dataflow`](#dataflow), [`Cloud Data Fusion`](#cloud-data-fusion) and [`Cloud Storage`](#cloud-storage)
