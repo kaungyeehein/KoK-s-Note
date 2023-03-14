@@ -172,26 +172,31 @@ Easy to build insight-powered workflows and applications
 ### Cloud SQL
 
 - Relational Database service with `MySQL`, `PostgreSQL` and `SQL Server`
+- Can store `Structured`
 - `Fully Managed`
 
 ### Cloud Spanner
 
 - Relational Database service with `GoogleSQL` and `PostgreSQL`
+- Can store `Structured`
 - `Fully Managed`, `Autoscaling` and `High Availability`
 
 ### AlloyDB
 
 - Relational Database service with `PostgreSQL` compatible database
+- Can store `Structured`
 - `Fully Managed`, `Superior performance, availability, and scale`
 
 ### Firestore
 
 - NoSQL database
+- Can store `Structured`
 - `Autoscaling`, `High Performance`, `Easy to use`, `Real-time`, `Mobile App`
 
 ### Cloud Bigtable
 
 - NoSQL database
+- Can store `Structured`
 - `Fully Managed`, `High Performance`, `High Scalability`
 
 ---
