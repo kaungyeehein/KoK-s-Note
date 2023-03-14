@@ -62,7 +62,7 @@ Deploy, manage, and scale containerized applications
 
 ### Cloud Run
 
-- Faster than [`App Engine`](#app-engine), `Container`, `Serverless`, `Clusterless`
+- Faster than [`App Engine`](#app-engine), `Container`, `Serverless`, `Clusterless`, `Deploy & Host`
 - `Fully Managed`, `Auto-scales` (automatically scale to 0 when not in use), `15 min timeout`
 - Build and deploy scalable `Containerized Apps` written in any language (including `Go`, `Python`, `Java`, `Node.js`, `.NET`, and `Ruby`)
 
@@ -125,7 +125,7 @@ Anthos is the leading cloud-centric container platform
 
 ### Dataflow
 
-- `Stream` and `Batch` data processing with `Serverless`
+- `Stream` and `Batch` data processing with `Serverless`, `Enterprise Data Warehouse`
 - Feature `Autoscaling`, `Stream analytics`, `Real-time AI`
 - Related `Python`, `SQL`, `Apache Beam SDK`, `TensorFlow`, [`Pub/Sub`](#pubsub), [`BigQuery`](#bigquery), `IoT platform`
 
