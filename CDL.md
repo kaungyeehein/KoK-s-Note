@@ -106,6 +106,43 @@ Anthos is the leading cloud-centric container platform
 - Can analyze data using `SQL`, `Python`, `R`, or `any other language, third-party`
 - Related [`BigQuery`](#bigquery), [`Dataproc`](#dataproc), [`Dataflow`](#dataflow), [`Cloud Data Fusion`](#cloud-data-fusion) and [`Cloud Storage`](#cloud-storage)
 
+### Cloud SQL
+
+- Relational Database service with `MySQL`, `PostgreSQL` and `SQL Server`
+- Can store `Structured` data
+- `Fully Managed`
+
+### Cloud Spanner
+
+- Relational Database service with `GoogleSQL` and `PostgreSQL`
+- Can store `Structured` data
+- `Fully Managed`, `Autoscaling` and `High Availability`
+
+### AlloyDB
+
+- Relational Database service with `PostgreSQL` compatible database
+- Can store `Structured` data
+- `Fully Managed`, `Superior performance, availability, and scale`
+
+### Firestore
+
+- NoSQL database
+- Can store `Semi-Structured` data
+- `Autoscaling`, `High Performance`, `Easy to use`, `Real-time`, `Mobile App`
+
+### Cloud Bigtable
+
+- NoSQL database
+- Can store `Semi-Structured` data
+- `Fully Managed`, `High Performance`, `High Scalability`
+
+### Cloud Storage
+
+- Can store `Unstructured` data
+- Options `Standard` (Hot data), `Nearline` (30 Days), `Coldline` (90 Days) and `Archival` (365 Days)
+- Feature `Object Lifecycle Management` (OLM) and `Autoclass` for static content or static media (audio or video)
+- Related [`Data Warehouse`](#data-warehouse), [`BigQuery`](#bigquery), [`Dataproc`](#dataproc), `ML` and `AI`
+
 ### Streaming Analytics
 
 - Data in `Small sizes` (often in kilobytes) in a `Continuous Flow` (real-time insights)
@@ -149,13 +186,6 @@ Fully managed, cloud-native data integration at any scale.
 - `Serverless` and pre-built 150+ library for batch and real-time
 - Related [`Data Lake`](#data-lake)
 
-### Cloud Storage
-
-- Can store `Unstructured` data
-- Options `Standard` (Hot data), `Nearline` (30 Days), `Coldline` (90 Days) and `Archival` (365 Days)
-- Feature `Object Lifecycle Management` (OLM) and `Autoclass` for static content or static media (audio or video)
-- Related [`Data Warehouse`](#data-warehouse), [`BigQuery`](#bigquery), [`Dataproc`](#dataproc), `ML` and `AI`
-
 ### Pub/Sub
 
 Scalable messaging or queue system (pull and push modes)
@@ -168,36 +198,6 @@ Easy to build insight-powered workflows and applications
 - `Real-time` view of your data, from across `Multiple Clouds`
 - `Looker’s SDK`, `APIs`, and `Looker Blocks`
 - Feature `LookML` (SQL), `Looker Studio`, `Looker API` (RESTful) and `Looker Blocks` (Template)
-
-### Cloud SQL
-
-- Relational Database service with `MySQL`, `PostgreSQL` and `SQL Server`
-- Can store `Structured`
-- `Fully Managed`
-
-### Cloud Spanner
-
-- Relational Database service with `GoogleSQL` and `PostgreSQL`
-- Can store `Structured`
-- `Fully Managed`, `Autoscaling` and `High Availability`
-
-### AlloyDB
-
-- Relational Database service with `PostgreSQL` compatible database
-- Can store `Structured`
-- `Fully Managed`, `Superior performance, availability, and scale`
-
-### Firestore
-
-- NoSQL database
-- Can store `Structured`
-- `Autoscaling`, `High Performance`, `Easy to use`, `Real-time`, `Mobile App`
-
-### Cloud Bigtable
-
-- NoSQL database
-- Can store `Structured`
-- `Fully Managed`, `High Performance`, `High Scalability`
 
 ---
 
