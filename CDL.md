@@ -143,6 +143,24 @@ Anthos is the leading cloud-centric container platform
 - Feature `Object Lifecycle Management` (OLM) and `Autoclass` for static content or static media (audio or video)
 - Related [`Data Warehouse`](#data-warehouse), [`Data Lake`](#data-lake), [`BigQuery`](#bigquery), [`Dataproc`](#dataproc), `ML` and `AI`
 
+### Pub/Sub
+
+Scalable messaging or queue system (pull and push modes)
+- Streaming into [`BigQuery`](#bigquery), [`Data Lake`](#data-lake) with [`Dataflow`](#dataflow)
+- Related [`Cloud Functions`](#cloud-functions), [`App Engine`](#app-engine), [`Cloud Run`](#cloud-run)
+
+### Dataflow
+
+- `Stream` and `Batch` data processing with `Serverless`
+- Feature `Autoscaling`, `Stream analytics`, `Real-time AI`
+- Related `Python`, `SQL`, `Apache Beam SDK`, `TensorFlow`, [`Pub/Sub`](#pubsub), [`BigQuery`](#bigquery), `IoT platform`
+
+### BigQuery
+
+- `Serverless` and `Multi Clouds` with `BI`, `ML` and `AI`
+- Can perform  `Structured`, `Semi-structured` and `Unstructured` with `Enterprise Data Warehouse`
+- Related `SQL`, `Vertex AI`, [`Dataflow`](#dataflow), [`Looker`](#looker)
+
 ### Streaming Analytics
 
 - Data in `Small sizes` (often in kilobytes) in a `Continuous Flow` (real-time insights)
@@ -159,24 +177,6 @@ Anthos is the leading cloud-centric container platform
 - Subset of artificial intelligence
 - Autonomously learn and improve using `Neural Networks` and `Deep Learning`
 - Related `AI Hub`, `AI Platform`, `AI Building BLocks`, `AI Infrastructure`, `Cloud TPU`, `TensorFlow` and `Vertex AI`
-
-### Pub/Sub
-
-Scalable messaging or queue system (pull and push modes)
-- Streaming into `BigQuery`, `Data Lakes` with `Dataflow`
-- Related `Cloud Functions`, `App Engine`, `Cloud Run`
-
-### Dataflow
-
-- `Stream` and `Batch` data processing with `Serverless`
-- Feature `Autoscaling`, `Stream analytics`, `Real-time AI`
-- Related `Python`, `SQL`, `Apache Beam SDK`, `TensorFlow`, [`Pub/Sub`](#pubsub), [`BigQuery`](#bigquery), `IoT platform`
-
-### BigQuery
-
-- `Serverless` and `Multi Clouds` with `BI`, `ML` and `AI`
-- Can perform  `Structured`, `Semi-structured` and `Unstructured` with `Enterprise Data Warehouse`
-- Related `SQL`, `Vertex AI`, [`Dataflow`](#dataflow), [`Looker`](#looker)
 
 ### Dataproc
 
