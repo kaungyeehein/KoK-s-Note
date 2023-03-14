@@ -23,8 +23,8 @@
 - Module 3: Innovation with machine learning
 
 [`Cloud Database`](#cloud-database),
-[`Data Lake`](#data-lake), 
 [`Data Warehouse`](#data-warehouse), 
+[`Data Lake`](#data-lake), 
 [`Streaming Analytics`](#streaming-analytics), 
 [`Business Intelligence`](#business-intelligence),
 [`Machine Learning`](#machine-learning)
