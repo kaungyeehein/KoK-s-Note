@@ -120,12 +120,12 @@ Anthos is the leading cloud-centric container platform
 ### BigQuery
 
 - `Serverless` and `Multi Clouds` with `BI`, `ML` and `AI`
-- Can perform  `Structured`, `Semi-structured` and `Unstructured`
+- Can perform  `Structured`, `Semi-structured` and `Unstructured` with `Enterprise Data Warehouse`
 - Related `SQL`, `Vertex AI`, [`Dataflow`](#dataflow), [`Looker`](#looker)
 
 ### Dataflow
 
-- `Stream` and `Batch` data processing with `Serverless`, `Enterprise Data Warehouse`
+- `Stream` and `Batch` data processing with `Serverless`
 - Feature `Autoscaling`, `Stream analytics`, `Real-time AI`
 - Related `Python`, `SQL`, `Apache Beam SDK`, `TensorFlow`, [`Pub/Sub`](#pubsub), [`BigQuery`](#bigquery), `IoT platform`
 
