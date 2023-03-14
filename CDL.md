@@ -179,12 +179,6 @@ Easy to build insight-powered workflows and applications
 - `Looker’s SDK`, `APIs`, and `Looker Blocks`
 - Feature `LookML` (SQL), `Looker Studio`, `Looker API` (RESTful) and `Looker Blocks` (Template)
 
-### Machine Learning
-
-- Subset of artificial intelligence
-- Autonomously learn and improve using `Neural Networks` and `Deep Learning`
-- Related `AI Hub`, `AI Platform`, `AI Building BLocks`, `AI Infrastructure`, `Cloud TPU`, `TensorFlow` and `Vertex AI`
-
 ### Dataproc
 
 - Fully managed and automated `Big Data` open source software
@@ -198,6 +192,22 @@ Fully managed, cloud-native data integration at any scale.
 - Code-free deployment (drag-and-drop interface) of ETL/ELT data pipelines
 - `Serverless` and pre-built 150+ library for batch and real-time
 - Related [`Data Lake`](#data-lake)
+
+### Machine Learning
+
+- Subset of artificial intelligence
+- Autonomously learn and improve using `Neural Networks` and `Deep Learning`
+- Related `AI Hub`, `AI Platform`, `AI Building BLocks`, `AI Infrastructure`, `Cloud TPU`, `TensorFlow` and [`Vertex AI`](#vertex-ai)
+
+### Pre-trained API
+
+- `No need data for ML` for analysis `Images`, `Vides` and `Text`
+- `Sight`, `Language`, `Conversation` and `Structured data`
+
+### Vertex AI
+
+- `AutoML` : `No Coding`
+- `Custom Model Tooling` : `Need Coding`
 
 ---
 
