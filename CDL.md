@@ -219,6 +219,7 @@ Fully managed, cloud-native data integration at any scale.
 - Machine Learning (ML)
 - Artificial Intelligence (AI)
 - Natural Language Processing (NLP)
+- Tensor Processing Unit (TPU)
 - Enterprise Data Warehouse (EDW)
 - Extract, Transform, Load (ETL)
 - Extract, Load, Transform (ELT)
