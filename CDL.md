@@ -87,18 +87,23 @@ Content Delivery Network is deliver Web and video content with global scale and 
 Anthos is the leading cloud-centric container platform
 - `GCP`, `GDC`, `On-Premises`, `Multi-Cloud` (AWS, Azure)
 
-### Data Lake
+### Cloud Database
 
-- Can store `Structured`, `Semi-structured` and `Unstructured` (No Size Limits)
-- Can perform `Any Data` from `Any System` at `Any Speed` in `Real-time` or `Batch mode` (eg. big data for AI, ML)
-- Can analyze data using `SQL`, `Python`, `R`, or `any other language, third-party`
-- Related [`BigQuery`](#bigquery), [`Dataproc`](#dataproc), [`Dataflow`](#dataflow), [`Cloud Data Fusion`](#cloud-data-fusion) and [`Cloud Storage`](#cloud-storage)
+- RDBMS [`Cloud Sql`](#cloud-sql), [`Cloud Spanner`](#cloud-spanner), [`AlloyDB`](#alloydb)
+- NoSQL [`Firestore`](#firestore), [`Cloud Bigtable`](#cloud-bigtable)
 
 ### Data Warehouse
 
 - Can store `Structured` and `Semi-structured` (current and historical)
 - Can perform `Analysis` (Big-data) and `Reporting` (visualization) (eg. ad-hoc analysis, monthly, tracking, traffic, real-time, Streaming report, Data mining, science)
 - Related [`BigQuery`](#bigquery), [`Dataproc`](#dataproc) and [`Dataflow`](#dataflow)
+
+### Data Lake
+
+- Can store `Structured`, `Semi-structured` and `Unstructured` (No Size Limits)
+- Can perform `Any Data` from `Any System` at `Any Speed` in `Real-time` or `Batch mode` (eg. big data for AI, ML)
+- Can analyze data using `SQL`, `Python`, `R`, or `any other language, third-party`
+- Related [`BigQuery`](#bigquery), [`Dataproc`](#dataproc), [`Dataflow`](#dataflow), [`Cloud Data Fusion`](#cloud-data-fusion) and [`Cloud Storage`](#cloud-storage)
 
 ### Streaming Analytics
 
@@ -178,15 +183,15 @@ Easy to build insight-powered workflows and applications
 - Relational Database service with `PostgreSQL` compatible database
 - `Fully Managed`, `Superior performance, availability, and scale`
 
-### Cloud Bigtable
-
-- NoSQL database
-- `Fully Managed`, `High Performance`, `High Scalability`
-
 ### Firestore
 
 - NoSQL database
 - `Autoscaling`, `High Performance`, `Easy to use`, `Real-time`, `Mobile App`
+
+### Cloud Bigtable
+
+- NoSQL database
+- `Fully Managed`, `High Performance`, `High Scalability`
 
 ---
 
