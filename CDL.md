@@ -141,7 +141,7 @@ Anthos is the leading cloud-centric container platform
 - Can store `Unstructured` data
 - Options `Standard` (Hot data), `Nearline` (30 Days), `Coldline` (90 Days) and `Archival` (365 Days)
 - Feature `Object Lifecycle Management` (OLM) and `Autoclass` for static content or static media (audio or video)
-- Related [`Data Warehouse`](#data-warehouse), [`BigQuery`](#bigquery), [`Dataproc`](#dataproc), `ML` and `AI`
+- Related [`Data Warehouse`](#data-warehouse), [`Data Lake`](#data-lake), [`BigQuery`](#bigquery), [`Dataproc`](#dataproc), `ML` and `AI`
 
 ### Streaming Analytics
 
