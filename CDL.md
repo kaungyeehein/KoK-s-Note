@@ -172,6 +172,13 @@ Scalable messaging or queue system (pull and push modes)
 - Categories `On-premises`, `Open source` and `Cloud-based`
 - Related [`BigQuery`](#bigquery) and [`Looker`](#looker)
 
+### Looker
+
+Easy to build insight-powered workflows and applications
+- `Real-time` view of your data, from across `Multiple Clouds`
+- `Looker’s SDK`, `APIs`, and `Looker Blocks`
+- Feature `LookML` (SQL), `Looker Studio`, `Looker API` (RESTful) and `Looker Blocks` (Template)
+
 ### Machine Learning
 
 - Subset of artificial intelligence
@@ -191,13 +198,6 @@ Fully managed, cloud-native data integration at any scale.
 - Code-free deployment (drag-and-drop interface) of ETL/ELT data pipelines
 - `Serverless` and pre-built 150+ library for batch and real-time
 - Related [`Data Lake`](#data-lake)
-
-### Looker
-
-Easy to build insight-powered workflows and applications
-- `Real-time` view of your data, from across `Multiple Clouds`
-- `Looker’s SDK`, `APIs`, and `Looker Blocks`
-- Feature `LookML` (SQL), `Looker Studio`, `Looker API` (RESTful) and `Looker Blocks` (Template)
 
 ---
 
