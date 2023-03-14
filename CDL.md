@@ -160,17 +160,23 @@ Anthos is the leading cloud-centric container platform
 - Autonomously learn and improve using `Neural Networks` and `Deep Learning`
 - Related `AI Hub`, `AI Platform`, `AI Building BLocks`, `AI Infrastructure`, `Cloud TPU`, `TensorFlow` and `Vertex AI`
 
-### BigQuery
+### Pub/Sub
 
-- `Serverless` and `Multi Clouds` with `BI`, `ML` and `AI`
-- Can perform  `Structured`, `Semi-structured` and `Unstructured` with `Enterprise Data Warehouse`
-- Related `SQL`, `Vertex AI`, [`Dataflow`](#dataflow), [`Looker`](#looker)
+Scalable messaging or queue system (pull and push modes)
+- Streaming into `BigQuery`, `Data Lakes` with `Dataflow`
+- Related `Cloud Functions`, `App Engine`, `Cloud Run`
 
 ### Dataflow
 
 - `Stream` and `Batch` data processing with `Serverless`
 - Feature `Autoscaling`, `Stream analytics`, `Real-time AI`
 - Related `Python`, `SQL`, `Apache Beam SDK`, `TensorFlow`, [`Pub/Sub`](#pubsub), [`BigQuery`](#bigquery), `IoT platform`
+
+### BigQuery
+
+- `Serverless` and `Multi Clouds` with `BI`, `ML` and `AI`
+- Can perform  `Structured`, `Semi-structured` and `Unstructured` with `Enterprise Data Warehouse`
+- Related `SQL`, `Vertex AI`, [`Dataflow`](#dataflow), [`Looker`](#looker)
 
 ### Dataproc
 
@@ -185,12 +191,6 @@ Fully managed, cloud-native data integration at any scale.
 - Code-free deployment (drag-and-drop interface) of ETL/ELT data pipelines
 - `Serverless` and pre-built 150+ library for batch and real-time
 - Related [`Data Lake`](#data-lake)
-
-### Pub/Sub
-
-Scalable messaging or queue system (pull and push modes)
-- Streaming into `BigQuery`, `Data Lakes` with `Dataflow`
-- Related `Cloud Functions`, `App Engine`, `Cloud Run`
 
 ### Looker
 
