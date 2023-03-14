@@ -22,6 +22,7 @@
 - Module 2: Data consolidation and analytics
 - Module 3: Innovation with machine learning
 
+[`Cloud Database`](#cloud-database),
 [`Data Lake`](#data-lake), 
 [`Data Warehouse`](#data-warehouse), 
 [`Streaming Analytics`](#streaming-analytics), 
