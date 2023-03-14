@@ -47,36 +47,38 @@
 
 ## Google Products
 
-### Compute Engine
+### Compute 
 
-- Virtual Machines (`VM`), `GPU`, `TPU`, `Disk`
-- Scale out workloads (T2A, T2D) is `Lowest Cost`
-- General purpose workloads (E2, N2, N2D, N1) for `Development and Testing`
-- Ultra-high memory (M2, M1) for `SAP HANA`
-- Compute-intensive workloads (C3, C2, C2D) for `Game Server`, and `Latency-sensitive API`
-- Most demanding applications and workloads (A2) for `ML`
+> ### Compute Engine
+>
+> - Virtual Machines (`VM`), `GPU`, `TPU`, `Disk`
+> - Scale out workloads (T2A, T2D) is `Lowest Cost`
+> - General purpose workloads (E2, N2, N2D, N1) for `Development and Testing`
+> - Ultra-high memory (M2, M1) for `SAP HANA`
+> - Compute-intensive workloads (C3, C2, C2D) for `Game Server`, and `Latency-sensitive API`
+> - Most demanding applications and workloads (A2) for `ML`
 
-### Google Kubernetes Engine
+> ### Google Kubernetes Engine
+>
+> Deploy, manage, and scale containerized applications
+> - `Fully managed`, `Autopilot`, `4-way Autoscaling`, `Multi-cluster`
 
-Deploy, manage, and scale containerized applications
-- `Fully managed`, `Autopilot`, `4-way Autoscaling`, `Multi-cluster`
+> ### Cloud Run
+>
+> - Faster than [`App Engine`](#app-engine), `Container`, `Serverless`, `Clusterless`, `Deploy & Host`
+> - `Fully Managed`, `Auto-scales` (automatically scale to 0 when not in use), `15 min timeout`
+> - Build and deploy scalable `Containerized Apps` written in any language (including `Go`, `Python`, `Java`, `Node.js`, `.NET`, and `Ruby`)
 
-### Cloud Run
+> ### App Engine
+>
+> - Run App on `VM`, `Container`
+> - `Zero server management` and `Zero configuration deployments` (`Serverless`)
+> - `Fully Managed`, `Auto-scaling`, and `Manual scaling`, `24 hr timeout`
+> - Build your application in `Node.js`, `Java`, `Ruby`, `C#`, `Go`, `Python`, or `PHP` (Popular programming languages) 
 
-- Faster than [`App Engine`](#app-engine), `Container`, `Serverless`, `Clusterless`, `Deploy & Host`
-- `Fully Managed`, `Auto-scales` (automatically scale to 0 when not in use), `15 min timeout`
-- Build and deploy scalable `Containerized Apps` written in any language (including `Go`, `Python`, `Java`, `Node.js`, `.NET`, and `Ruby`)
-
-### App Engine
-
-- Run App on `VM`, `Container`
-- `Zero server management` and `Zero configuration deployments` (`Serverless`)
-- `Fully Managed`, `Auto-scaling`, and `Manual scaling`, `24 hr timeout`
-- Build your application in `Node.js`, `Java`, `Ruby`, `C#`, `Go`, `Python`, or `PHP` (Popular programming languages) 
-
-### Cloud Functions
-
-- `Lightweight`, `Event Driving`, `Serverless`
+> ### Cloud Functions
+>
+> - `Lightweight`, `Event Driving`, `Serverless`
 
 ### Cloud CDN
 
@@ -88,60 +90,62 @@ Content Delivery Network is deliver Web and video content with global scale and 
 Anthos is the leading cloud-centric container platform
 - `GCP`, `GDC`, `On-Premises`, `Multi-Cloud` (AWS, Azure)
 
-### Cloud Database
+### Storage
 
-- RDBMS [`Cloud Sql`](#cloud-sql), [`Cloud Spanner`](#cloud-spanner), [`AlloyDB`](#alloydb)
-- NoSQL [`Firestore`](#firestore), [`Cloud Bigtable`](#cloud-bigtable)
+> ### Cloud Database
+>
+> - RDBMS [`Cloud Sql`](#cloud-sql), [`Cloud Spanner`](#cloud-spanner), [`AlloyDB`](#alloydb)
+> - NoSQL [`Firestore`](#firestore), [`Cloud Bigtable`](#cloud-bigtable)
 
-### Data Warehouse
+> ### Data Warehouse
+>
+> - Can store `Structured` and `Semi-structured` (current and historical)
+> - Can perform `Analysis` (Big-data) and `Reporting` (visualization) (eg. ad-hoc analysis, monthly, tracking, traffic, real-time, Streaming report, Data mining, science)
+> - Related [`BigQuery`](#bigquery), [`Dataproc`](#dataproc) and [`Dataflow`](#dataflow)
 
-- Can store `Structured` and `Semi-structured` (current and historical)
-- Can perform `Analysis` (Big-data) and `Reporting` (visualization) (eg. ad-hoc analysis, monthly, tracking, traffic, real-time, Streaming report, Data mining, science)
-- Related [`BigQuery`](#bigquery), [`Dataproc`](#dataproc) and [`Dataflow`](#dataflow)
+> ### Data Lake
+>
+> - Can store `Structured`, `Semi-structured` and `Unstructured` (No Size Limits)
+> - Can perform `Any Data` from `Any System` at `Any Speed` in `Real-time` or `Batch mode` (eg. big data for AI, ML)
+> - Can analyze data using `SQL`, `Python`, `R`, or `any other language, third-party`
+> - Related [`BigQuery`](#bigquery), [`Dataproc`](#dataproc), [`Dataflow`](#dataflow), [`Cloud Data Fusion`](#cloud-data-fusion) and [`Cloud Storage`](#cloud-storage)
 
-### Data Lake
+>> ### Cloud SQL
+>>
+>> - Relational Database service with `MySQL`, `PostgreSQL` and `SQL Server`
+>> - Can store `Structured` data
+>> - `Fully Managed`
+>>
+>> ### Cloud Spanner
+>>
+>> - Relational Database service with `GoogleSQL` and `PostgreSQL`
+>> - Can store `Structured` data
+>> - `Fully Managed`, `Autoscaling` and `High Availability`
+>>
+>> ### AlloyDB
+>>
+>> - Relational Database service with `PostgreSQL` compatible database
+>> - Can store `Structured` data
+>> - `Fully Managed`, `Superior performance, availability, and scale`
+>
+>> ### Firestore
+>>
+>> - NoSQL database
+>> - Can store `Semi-Structured` data
+>> - `Autoscaling`, `High Performance`, `Easy to use`, `Real-time`, `Mobile App`
+>>
+>> ### Cloud Bigtable
+>>
+>> - NoSQL database
+>> - Can store `Semi-Structured` data
+>> - `Fully Managed`, `High Performance`, `High Scalability`
 
-- Can store `Structured`, `Semi-structured` and `Unstructured` (No Size Limits)
-- Can perform `Any Data` from `Any System` at `Any Speed` in `Real-time` or `Batch mode` (eg. big data for AI, ML)
-- Can analyze data using `SQL`, `Python`, `R`, or `any other language, third-party`
-- Related [`BigQuery`](#bigquery), [`Dataproc`](#dataproc), [`Dataflow`](#dataflow), [`Cloud Data Fusion`](#cloud-data-fusion) and [`Cloud Storage`](#cloud-storage)
-
-### Cloud SQL
-
-- Relational Database service with `MySQL`, `PostgreSQL` and `SQL Server`
-- Can store `Structured` data
-- `Fully Managed`
-
-### Cloud Spanner
-
-- Relational Database service with `GoogleSQL` and `PostgreSQL`
-- Can store `Structured` data
-- `Fully Managed`, `Autoscaling` and `High Availability`
-
-### AlloyDB
-
-- Relational Database service with `PostgreSQL` compatible database
-- Can store `Structured` data
-- `Fully Managed`, `Superior performance, availability, and scale`
-
-### Firestore
-
-- NoSQL database
-- Can store `Semi-Structured` data
-- `Autoscaling`, `High Performance`, `Easy to use`, `Real-time`, `Mobile App`
-
-### Cloud Bigtable
-
-- NoSQL database
-- Can store `Semi-Structured` data
-- `Fully Managed`, `High Performance`, `High Scalability`
-
-### Cloud Storage
-
-- Can store `Unstructured` data
-- Options `Standard` (Hot data), `Nearline` (30 Days), `Coldline` (90 Days) and `Archival` (365 Days)
-- Feature `Object Lifecycle Management` (OLM) and `Autoclass` for static content or static media (audio or video)
-- Related [`Data Warehouse`](#data-warehouse), [`Data Lake`](#data-lake), [`BigQuery`](#bigquery), [`Dataproc`](#dataproc), `ML` and `AI`
+>> ### Cloud Storage
+>>
+>> - Can store `Unstructured` data
+>> - Options `Standard` (Hot data), `Nearline` (30 Days), `Coldline` (90 Days) and `Archival` (365 Days)
+>> - Feature `Object Lifecycle Management` (OLM) and `Autoclass` for static content or static media (audio or video)
+>> - Related [`Data Warehouse`](#data-warehouse), [`Data Lake`](#data-lake), [`BigQuery`](#bigquery), [`Dataproc`](#dataproc), `ML` and `AI`
 
 ### Pub/Sub
 
