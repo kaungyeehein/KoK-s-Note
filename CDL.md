@@ -51,7 +51,7 @@
 
 > ### Compute Engine
 >
-> - Virtual Machines (`VM`), `GPU`, `TPU`, `Disk`
+> - Virtual Machines (`VM`, `GPU`, `TPU`, `Disk`)
 > - Scale out workloads (T2A, T2D) is `Lowest Cost`
 > - General purpose workloads (E2, N2, N2D, N1) for `Development and Testing`
 > - Ultra-high memory (M2, M1) for `SAP HANA`
@@ -105,7 +105,7 @@ Anthos is the leading cloud-centric container platform
 
 > ### Data Lake
 >
-> - Can store `Structured`, `Semi-structured` and `Unstructured` (No Size Limits)
+> - Can store `Structured`, `Semi-structured` and `Unstructured` (Raw) (No Size Limits)
 > - Can perform `Any Data` from `Any System` at `Any Speed` in `Real-time` or `Batch mode` (eg. big data for AI, ML)
 > - Can analyze data using `SQL`, `Python`, `R`, or `any other language, third-party`
 > - Related [`BigQuery`](#bigquery), [`Dataproc`](#dataproc), [`Dataflow`](#dataflow), [`Cloud Data Fusion`](#cloud-data-fusion) and [`Cloud Storage`](#cloud-storage)
