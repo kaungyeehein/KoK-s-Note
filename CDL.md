@@ -12,7 +12,7 @@
 [`Cloud Run`](#cloud-run),
 [`App Engine`](#app-engine),
 [`Cloud Functions`](#cloud-functions),
-[`Cloud CDN`](#cloud_cdn),
+[`Cloud CDN`](#cloud-cdn),
 [`Anthos`](#anthos)
 
 ## Course 2
