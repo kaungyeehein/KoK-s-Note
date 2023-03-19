@@ -37,7 +37,8 @@
 - Module 3: The value of APIs
 
 [`Container`](#container),
-[`Object Storage`](#object-storage)
+[`Object Storage`](#object-storage),
+[`Apigee`](#apigee)
 
 ## Course 4
 ### Understanding Google Cloud Security and Operations
@@ -227,6 +228,11 @@ Fully managed, cloud-native data integration at any scale.
 - `Easy access`, `Unlimited scale`, `Elasticity and Scalability` with `Unique Identifier`
 - Best for `Static Storage` (write data once and read many time)
 - Related `Cloud Storage`, `Filestore`, `Compute Engine`
+
+### Apigee
+
+- Developing and Managing APIs
+- `Proxy` server for API (not backend API server)
 
 ---
 
