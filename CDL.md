@@ -40,7 +40,7 @@
 [`Object Storage`](#object-storage),
 [`Apigee`](#apigee),
 [`Cloud BigTable`](#cloud-bigtable),
-[`Datapro`](#datapro)
+[`Dataproc`](#dataproc)
 
 ## Course 4
 ### Understanding Google Cloud Security and Operations
