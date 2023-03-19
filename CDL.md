@@ -36,6 +36,8 @@
 - Module 2: Modernizing applications with Google Cloud
 - Module 3: The value of APIs
 
+[`Container`](#container)
+
 ## Course 4
 ### Understanding Google Cloud Security and Operations
 
@@ -51,7 +53,7 @@
 
 > ### Compute Engine
 >
-> - Virtual Machines (`VM`, `GPU`, `TPU`, `Disk`)
+> - Virtual Machines (`VM`, `GPU`, `TPU`, `Disk`), `Virtualize HW`
 > - Scale out workloads (T2A, T2D) is `Lowest Cost`
 > - General purpose workloads (E2, N2, N2D, N1) for `Development and Testing`
 > - Ultra-high memory (M2, M1) for `SAP HANA`
@@ -212,6 +214,11 @@ Fully managed, cloud-native data integration at any scale.
 
 - `AutoML` : `No Coding`
 - `Custom Model Tooling` : `Need Coding`
+
+### Container
+
+- `lightweight`, `Virtualize OS`, `Share OS Kernel`
+- Related `Google Kubernetes Engine`, `Cloud Build`, `Cloud Run`, `Container Registry`, `Cloud Code`, `Deep Learning Container`
 
 ---
 
