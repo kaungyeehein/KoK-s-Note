@@ -36,7 +36,8 @@
 - Module 2: Modernizing applications with Google Cloud
 - Module 3: The value of APIs
 
-[`Container`](#container)
+[`Container`](#container),
+[`Object Storage`](#object-storage)
 
 ## Course 4
 ### Understanding Google Cloud Security and Operations
@@ -219,6 +220,13 @@ Fully managed, cloud-native data integration at any scale.
 
 - `lightweight`, `Virtualize OS`, `Share OS Kernel`
 - Related `Google Kubernetes Engine`, `Cloud Build`, `Cloud Run`, `Container Registry`, `Cloud Code`, `Deep Learning Container`
+
+### Object Storage
+
+- Can store `Unstructured` data in `flat data environment` or `Global Storage Pool`
+- `Easy access`, `Unlimited scale`, `Elasticity and Scalability` with `Unique Identifier`
+- Best for `Static Storage` (write data once and read many time)
+- Related `Cloud Storage`, `Filestore`, `Compute Engine`
 
 ---
 
