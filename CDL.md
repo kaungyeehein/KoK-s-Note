@@ -38,7 +38,9 @@
 
 [`Container`](#container),
 [`Object Storage`](#object-storage),
-[`Apigee`](#apigee)
+[`Apigee`](#apigee),
+[`Cloud BigTable`](#cloud-bigtable),
+[`Datapro`](#datapro)
 
 ## Course 4
 ### Understanding Google Cloud Security and Operations
