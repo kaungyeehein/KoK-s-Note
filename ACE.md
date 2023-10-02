@@ -9,11 +9,15 @@
 Create google cloud storage
 ```
 gcloud storage buckets create gs://<BUCKET_NAME>
+[OR]
+gsutil mb gs://<BUCKET_NAME>
 ```
 
 Copy file from `Cloud Shell` to storage buckets
 ```
 gcloud storage cp [MY_FILE] gs://[BUCKET_NAME]
+[OR]
+gsutil cp [MY_FILE] gs://[BUCKET_NAME]
 ```
 
 Setup default variable name
@@ -33,3 +37,14 @@ Edit `nano .profile` file and add at end
 ```
 source infraclass/config
 ```
+
+### Infrastructure Preview
+
+Jenkin install from Marketplace
+```
+sudo /opt/bitnami/ctlscript.sh stop
+sudo /opt/bitnami/ctlscript.sh restart
+```
+
+### Virtual Network
+
