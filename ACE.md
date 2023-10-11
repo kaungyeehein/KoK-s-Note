@@ -191,3 +191,31 @@ Health Check: http-health-check
 Enable logging: On
 Sample rate: 1
 ```
+
+Access the HTTP load balancer from Cloud Shell
+```
+LB_IP=[LB_IP_v4]
+while [ -z "$RESULT" ] ;
+do
+  echo "Waiting for Load Balancer";
+  sleep 5;
+  RESULT=$(curl -m1 -s $LB_IP | grep Apache);
+done
+```
+
+Stress test the HTTP load balancer with VM
+```
+Name:	stress-test
+Region:	A region different but closer to us-central1
+Zone:	A zone from the region
+Series:	E2
+Machine type:	e2-micro (2 vCPU)
+Boot Disk: Custom images(mywebserver)
+```
+
+Login to VM for Stress test
+```
+export LB_IP=<Enter your [LB_IP_v4] here>
+echo $LB_IP
+ab -n 500000 -c 1000 http://$LB_IP/
+```
