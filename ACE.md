@@ -48,6 +48,22 @@ sudo /opt/bitnami/ctlscript.sh restart
 
 ### Virtual Network
 
+### Virtual Machine
+
+Set the default region and zone for all resources in Cloud Shell
+```
+gcloud config set compute/region us-east1
+gcloud config set compute/zone us-east1-d
+```
+
+Create VM instances
+```
+  gcloud compute instances create nucleus-jumphost-294 \
+    --machine-type=e2-micro \
+    --image-family=debian-11 \
+    --image-project=debian-cloud \
+```
+
 ---
 
 ### Kubernetes Engine
