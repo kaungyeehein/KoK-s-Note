@@ -50,6 +50,28 @@ sudo /opt/bitnami/ctlscript.sh restart
 
 ---
 
+### Kubernetes Engine
+
+Set the default region and zone for all resources in Cloud Shell
+```
+gcloud config set compute/region us-east1
+gcloud config set compute/zone us-east1-d
+```
+
+Create a GKE cluster
+```
+gcloud container clusters create --machine-type=e2-medium lab-cluster
+gcloud container clusters get-credentials lab-cluster
+kubectl create deployment hello-server --image=gcr.io/google-samples/hello-app:1.0
+kubectl expose deployment hello-server --type=LoadBalancer --port 8080
+kubectl get service
+http://[EXTERNAL-IP]:8080
+------
+gcloud container clusters delete lab-cluster
+```
+
+---
+
 ## Scaling and Automation
 
 ### HTTP/HTTPS Load Balancer
