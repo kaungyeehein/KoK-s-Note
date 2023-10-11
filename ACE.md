@@ -61,7 +61,7 @@ Create VM instances
   gcloud compute instances create nucleus-jumphost-294 \
     --machine-type=e2-micro \
     --image-family=debian-11 \
-    --image-project=debian-cloud \
+    --image-project=debian-cloud
 ```
 
 ---
