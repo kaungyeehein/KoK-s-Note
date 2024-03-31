@@ -1,5 +1,5 @@
 # For MacOS
 .DS_Store
 # For Google Drive Sync
-.tmp.driveupload/
-.tmp.drivedownload/
+*.tmp.driveupload/
+*.tmp.drivedownload/
