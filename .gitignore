@@ -1,2 +1,4 @@
+# For MacOS
 .DS_Store
+# For Google Drive Sync
 .tmp.driveupload/
