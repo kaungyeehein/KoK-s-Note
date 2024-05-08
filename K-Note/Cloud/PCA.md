@@ -177,54 +177,54 @@ Note: Each exam includes 2 case studies for (20~30% of Exam).
 ### Storage
 
 - Object Store
-	- Cloud Storage
+    - Cloud Storage
 - Block Store
-	- Persistent Disk
-		- Standard
-		- Balance
-		- Performance
-		- Extreme
-	- Local SSD
+    - Persistent Disk
+        - Standard
+        - Balance
+        - Performance
+        - Extreme
+    - Local SSD
 - File Store
-	- Filestore
+    - Filestore
 
 ### Database
 
 - Relational
-	- Cloud SQL
-	- Cloud Spanner
-	- Bare Metal Solution
+    - Cloud SQL
+    - Cloud Spanner
+    - Bare Metal Solution
 - Non Relational
-	- Firestore (Datastore)
-	- Cloud Bigtable
-	- Memorystore
-	
+    - Firestore (Datastore)
+    - Cloud Bigtable
+    - Memorystore
+    
 ### Data Analytics
 
 - Capture
-	- Cloud Pub/Sub
-	- Data Transfer Service
-	- Storage Transfer Service
-	- Cloud IoT Core
+    - Cloud Pub/Sub
+    - Data Transfer Service
+    - Storage Transfer Service
+    - Cloud IoT Core
 - Process
-	- Cloud Dataflow
-	- Cloud Dataproc
-	- Cloud Dataprep
+    - Cloud Dataflow
+    - Cloud Dataproc
+    - Cloud Dataprep
 - Store
-	- Cloud Storage (Data Lake)
-	- BigQuery Storage (Data Warehouse)
+    - Cloud Storage (Data Lake)
+    - BigQuery Storage (Data Warehouse)
 - Analyze
-	- BigQuery Analysis Engine
+    - BigQuery Analysis Engine
 - Use
-	- Vertex AI
-	- Tensorflow
-	- Looker
-	- Data Studio
-
-- Cloud Data Fusion
-- Data Catalog
-- Data Stream
-- Cloud Composer
+    - Vertex AI
+    - Tensorflow
+    - Looker
+    - Data Studio
+- Other
+    - Cloud Data Fusion
+    - Data Catalog
+    - Data Stream
+    - Cloud Composer
 
 ### DevOps
 
@@ -246,51 +246,56 @@ Note: Each exam includes 2 case studies for (20~30% of Exam).
 ### Networking
 
 - Connect
-	- VPC
-	- Cloud DNS
-	- Cloud Router
-	- Cloud VPN
-	- Dedicated Interconnect
-	- Partner Interconnect
-	- Peering
+    - VPC
+    - Cloud DNS
+    - Cloud Router
+    - Cloud VPN
+        - RFC 1918
+    - VPC Network Peering
+        - RFC 1918
+    - Dedicated Interconnect
+        - RFC 1918
+    - Partner Interconnect
+        - RFC 1918
+    - Peering
 - Secure
-	- Cloud Armor
-	- Firewall
-	- Packet Mirroring
-	- Cloud IAP
-	- Cloud NAT
+    - Cloud Armor
+    - Firewall
+    - Packet Mirroring
+    - Cloud IAP
+    - Cloud NAT
 - Scale
-	- Cloud Load Balancer
-	- Cloud CDN
+    - Cloud Load Balancer
+    - Cloud CDN
 - Optimize
-	- Premium Tier
-	- Standard Tier
-	- Network Intelligence Center
+    - Premium Tier
+    - Standard Tier
+    - Network Intelligence Center
 - Modenize
-	- GKE Networking
-		- On-prem
-		- In Anthos
-	- Traffic Director
-	- Service Directory
+    - GKE Networking
+        - On-prem
+        - In Anthos
+    - Traffic Director
+    - Service Directory
 
 ### AI/ML
 
 - AI Solution
-	- Recommendation AI
-	- Document AI
-	- Contact Center AI
-	- Dialoglow Cx
+    - Recommendation AI
+    - Document AI
+    - Contact Center AI
+    - Dialoglow Cx
 - Pre-trained APIs
-	- Vision
-	- Video Intelligence
-	- Translation
-	- Natural Language
-	- Speech-To-Text
-	- Text-To-Speech
+    - Vision
+    - Video Intelligence
+    - Translation
+    - Natural Language
+    - Speech-To-Text
+    - Text-To-Speech
 - Training
-	- BigQuery ML
-	- Vertex Training
-	- AutoML in Vertex AI
+    - BigQuery ML
+    - Vertex Training
+    - AutoML in Vertex AI
 
 ### Security
 
