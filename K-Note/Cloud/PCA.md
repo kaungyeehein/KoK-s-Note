@@ -169,7 +169,9 @@ Note: Each exam includes 2 case studies for (20~30% of Exam).
 - Bare Metal Solution
 - VMware Engine
 - Compute Engine
-- Google Kubernet Engine (GKE)
+- Google Kubernet Engine (GKE): Pod, Deployment, StatefulSets, DaemonSets, and Jobs.
+    - Autopilot 
+    - Standard
 - App Engine
 - Cloud Run
 - Cloud Function
@@ -180,10 +182,10 @@ Note: Each exam includes 2 case studies for (20~30% of Exam).
     - Cloud Storage
 - Block Store
     - Persistent Disk
-        - Standard
-        - Balance
-        - Performance
-        - Extreme
+        - Standard: HDD
+        - Balance: SSD
+        - Performance: SSD
+        - Extreme: SSD
     - Local SSD
 - File Store
     - Filestore
@@ -251,13 +253,14 @@ Note: Each exam includes 2 case studies for (20~30% of Exam).
     - Cloud Router
     - Cloud VPN
         - RFC 1918
-    - VPC Network Peering
-        - RFC 1918
     - Dedicated Interconnect
         - RFC 1918
     - Partner Interconnect
         - RFC 1918
     - Peering
+        - VPC Network Peering: Connect VPC to VPC (RFC 1918)
+        - Direct Peering: Connect On-premise to Google Service Edge for G-suite
+        - Carrier Peering: Connect On-premise to Google Service Edge for G-suite
 - Secure
     - Cloud Armor
     - Firewall
