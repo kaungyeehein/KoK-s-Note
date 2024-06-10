@@ -4,7 +4,7 @@
 
 ---
 
-## Certification exam guide
+### Certification exam guide
 
 | Section | Title                                                     | Exam |
 |---------|-----------------------------------------------------------|------|
@@ -19,7 +19,7 @@ Note: Each exam includes 2 case studies for (20~30% of Exam).
 
 ---
 
-## Section 1: Designing and planning a cloud solution architecture (~24% of the exam)
+#### Section 1: Designing and planning a cloud solution architecture (~24% of the exam)
 
 1.1 Designing a solution infrastructure that meets business requirements. Considerations include:
 
@@ -66,7 +66,7 @@ Note: Each exam includes 2 case studies for (20~30% of Exam).
 
 ---
 
-## Section 2: Managing and provisioning a solution infrastructure (~15% of the exam)
+#### Section 2: Managing and provisioning a solution infrastructure (~15% of the exam)
 
 2.1 Configuring network topologies. Considerations include:
 
@@ -93,7 +93,7 @@ Note: Each exam includes 2 case studies for (20~30% of Exam).
 
  ---
 
-## Section 3: Designing for security and compliance (~18% of the exam)
+#### Section 3: Designing for security and compliance (~18% of the exam)
 
 3.1 Designing for security. Considerations include:
 
@@ -114,7 +114,7 @@ Note: Each exam includes 2 case studies for (20~30% of Exam).
 
 ---
 
-## Section 4: Analyzing and optimizing technical and business processes (~18% of the exam)
+#### Section 4: Analyzing and optimizing technical and business processes (~18% of the exam)
 
 4.1 Analyzing and defining technical processes. Considerations include:
 
@@ -138,7 +138,7 @@ Note: Each exam includes 2 case studies for (20~30% of Exam).
 
 ---
 
-## Section 5: Managing implementation (~11% of the exam)
+#### Section 5: Managing implementation (~11% of the exam)
 
 5.1 Advising development/operation teams to ensure successful deployment of the solution. Considerations include:
 
@@ -155,7 +155,7 @@ Note: Each exam includes 2 case studies for (20~30% of Exam).
 
 ---
 
-## Section 6: Ensuring solution and operations reliability (~14% of the exam)
+#### Section 6: Ensuring solution and operations reliability (~14% of the exam)
 
 6.1 Monitoring/logging/profiling/alerting solution
 6.2 Deployment and release management
@@ -168,18 +168,35 @@ Note: Each exam includes 2 case studies for (20~30% of Exam).
 
 - Bare Metal Solution
 - VMware Engine
-- Compute Engine
+- Google Compute Engine (GCE)
+    - Standard VM
+        - General-purpose workloads: N4, N2, N2D, N1, C3, C3D, E2, Tau T2D, Tau T2A
+        - Storage-optimized: Z3
+        - Compute-optimized: H3, C2, C2D
+        - Memory-optimized: X4, M3, M2, M1
+        - Accelerator-optimized: A3, A2, G2
+    - Preemptible VM (Only run 24 hr)
+        - Spot VM (latest version: No max limit)
+    - Managed Instance Groups (MIGs)
+    - Sole-tenant Nodes (Dedicated Host)
 - Google Kubernet Engine (GKE): Pod, Deployment, StatefulSets, DaemonSets, and Jobs.
     - Autopilot 
     - Standard
-- App Engine
-- Cloud Run
+- App Engine (Based on GKE) Stateful
+    - Standard environment (Go, Java, Node.js, Php, Python, Ruby)
+    - Flexible environment (Standard, .Net, Custom runtimes)
+- Cloud Run (Based on K-Native) Stateless
 - Cloud Function
+    - Event-driven architectures
 
 ### Storage
 
 - Object Store
     - Cloud Storage
+        - Standard Class
+        - Nearline Class (1 month)
+        - Coldline Class (3 months)
+        - Archive Class (1 year)
 - Block Store
     - Persistent Disk
         - Standard: HDD
@@ -187,8 +204,10 @@ Note: Each exam includes 2 case studies for (20~30% of Exam).
         - Performance: SSD
         - Extreme: SSD
     - Local SSD
-- File Store
+- File Store (NAS)
     - Filestore
+        - Basic Tier
+        - High Scale Tier
 
 ### Database
 
@@ -196,9 +215,13 @@ Note: Each exam includes 2 case studies for (20~30% of Exam).
     - Cloud SQL
     - Cloud Spanner
     - Bare Metal Solution
-- Non Relational
-    - Firestore (Datastore)
+- Non Relational (NoSQL)
+    - Firestore (Firebase) 
+        - Datastore mode
+        - Native mode
     - Cloud Bigtable
+        - 10ms latency
+        - Petabyte scale
     - Memorystore
     
 ### Data Analytics
@@ -230,12 +253,12 @@ Note: Each exam includes 2 case studies for (20~30% of Exam).
 
 ### DevOps
 
+- Cloud Source Repository
 - Cloud Code
 - Cloud Build
 - Artifact Registry
 - Container Registry 
 - Cloud Deploy
-- Cloud Run
 - Cloud Monitoring
 - Cloud Logging
 
@@ -249,31 +272,78 @@ Note: Each exam includes 2 case studies for (20~30% of Exam).
 
 - Connect
     - VPC
-    - Cloud DNS
+        - Flow logs (Logs Explorer, Flow Analyzer)
+        - Private Google Access (Subnet)
+            - Google APIs and services
+            - Only has an internal IP address
+    - VPC to VPC
+        - Shared VPC (Same Organization)
+        - VPC Network Peering (Diff Organization)
+    - VPC to On-premise
+        - Cloud VPN (Low bandwidth using IPsec)
+            - HA VPN
+            - Classic VPN
+        - Dedicated Interconnect (Technical requirements exist)
+        - Partner Interconnect (Connect using a service provider)
+        - Cross-Cloud Interconnect (Multi-cloud)
+    - On-premise to G-suite and Google APIs
+        - Direct Peering (Connect to Google Service Edge location)
+        - Carrier Peering (Connect using a service provider)
     - Cloud Router
-    - Cloud VPN
-        - RFC 1918
-    - Dedicated Interconnect
-        - RFC 1918
-    - Partner Interconnect
-        - RFC 1918
-    - Peering
-        - VPC Network Peering: Connect VPC to VPC (RFC 1918)
-        - Direct Peering: Connect On-premise to Google Service Edge for G-suite
-        - Carrier Peering: Connect On-premise to Google Service Edge for G-suite
+        - Border Gateway Protocol (BGP) over Cloud Interconnect connections and Cloud VPN gateways
+    - RFC 1918
+        - Class A: 10.x.x.x
+        - Class B: 172.16.x.x
+        - Class C: 192.168.x.x
+    - Cloud DNS
 - Secure
-    - Cloud Armor
+    - Cloud Armor (DDoS protections for External LB)
     - Firewall
+        - Network Tags
     - Packet Mirroring
-    - Cloud IAP
+    - Cloud IAP (Identity-Aware Proxy)
+    - Service perimeter (VPC Service Controls)
+        - Enforced mode (Denied)
+        - Dry run mode (Allowed but logged)
     - Cloud NAT
 - Scale
     - Cloud Load Balancer
+        - Application Load Balancers: (HTTP(S)) proxy-based Layer 7 with URL map
+        
+            | Application LB | Built on                  | Multi-Region              | Single-Region      |
+            |----------------|---------------------------|---------------------------|--------------------|
+            | Enternal       | GFE or Envoy proxies      | Global, Classic (http(s)) | Regional (http(s)) |
+            | Internal       | Andromeda and Envoy proxy | Cross-region (http(s))    | Regional (http(s)) |
+
+        - Network Load Balancers: (TCP, UDP, ESP, GRE, and ICMP) Layer 4 load balancer with TLS
+            - Proxy Network Load Balancers (TCP/SSL)
+            
+                | Proxy Network LB | Built on                  | Multi-Region              | Single-Region  |
+                |------------------|---------------------------|---------------------------|----------------|
+                | Enternal         | GFE or Envoy proxies      | Global, Classic (tcp/ssl) | Regional (tcp) |
+                | Internal         | Andromeda and Envoy proxy | Cross-region (tcp)        | Regional (tcp) |
+
+            - Passthrough Network Load Balancers with direct server return (DSR)
+            
+                | Passthrough Network LB | Built on  | Multi-Region | Single-Region                         |
+                |------------------------|-----------|--------------|---------------------------------------|
+                | Enternal               | Maglev    |              | Regional (tcp, udp, esp, gre, icmp)   |
+                | Internal               | Andromeda |              | Regional (tcp, udp, esp, gre, icmp)   |
+
+        `Global: Advanced traffic management` `Classic: Basic traffic management`
+        
     - Cloud CDN
+    
 - Optimize
-    - Premium Tier
-    - Standard Tier
+    - Premium Tier (Google's premium backbone)
+    - Standard Tier (Regular ISP networks)
     - Network Intelligence Center
+        - Network Topology
+        - Connectivity Tests
+        - Performance Dashboard
+        - Firewall Insights
+        - Network Analyzer
+        - Flow Analyzer
 - Modenize
     - GKE Networking
         - On-prem
@@ -302,13 +372,31 @@ Note: Each exam includes 2 case studies for (20~30% of Exam).
 
 ### Security
 
+- Secure boot and vTPM
 - Security Command Center
 - Identity and Access Management (IAM)
 - Binary Authorization
 - Data Loss Prevention (Cloud DLP API)
 - Cloud Armor
 
+### Operation
+
+- Billing
+    - labels (categorization and insight)
+
 ---
 
+- Migrate for Compute Engine
 - Anthos
+    - Migrate to Containers (Migrate for Anthos)
 - Apigee
+- Terraform
+    1. **Scope**: Confirm resource required
+    2. **Author**: Configuration files based on Scope
+    3. **Initialize**: Download the provider plugin & initialize directory
+    4. **Plan**: View execution plan for resource
+        - Created
+        - Modified
+        - Destroyed
+    5. **Validate**: Check organization policy (CI/CD)
+    6. **Apply**: Create actual infractructure resource
