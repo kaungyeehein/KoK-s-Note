@@ -150,7 +150,7 @@ Note: Each exam includes 2 case studies for (20~30% of Exam).
 5.2 Interacting with Google Cloud programmatically. Considerations include:
 
 - Google Cloud Shell
-- Google Cloud SDK (gcloud, gsutil and bq)
+- Google Cloud SDK (gcloud, gsutil , kubectl and bq)
 - Cloud Emulators (e.g. Cloud Bigtable, Datastore, Spanner, Pub/Sub, Firestore)
 
 ---
@@ -255,7 +255,7 @@ Note: Each exam includes 2 case studies for (20~30% of Exam).
 
 - Cloud Source Repository
 - Cloud Code
-- Cloud Build
+- Cloud Build (trigger)
 - Artifact Registry
 - Container Registry 
 - Cloud Deploy
@@ -302,8 +302,8 @@ Note: Each exam includes 2 case studies for (20~30% of Exam).
     - Packet Mirroring
     - Cloud IAP (Identity-Aware Proxy)
     - Service perimeter (VPC Service Controls)
-        - Enforced mode (Denied)
-        - Dry run mode (Allowed but logged)
+        - Enforced mode (Denied and logged)
+        - Dry run mode (Allowed and logged)
     - Cloud NAT
 - Scale
     - Cloud Load Balancer
@@ -395,7 +395,55 @@ Note: Each exam includes 2 case studies for (20~30% of Exam).
 
 - Billing
     - labels (categorization and insight)
-
+- Service Design
+    - Durability: Data protection, RTO (recovery time objective) and RPO (recovery point objective)
+    - Availability: Uptime, Health checks, zones or regions
+    - Scalability: Handle increased load, autoscaling, managed instance group, metrics (CPU, Request per second), scale in (remove instances) or scale out (add instances)
+- DR Patterns
+    - Hot with a low RTO (active, active architecture)
+    - Warm with a high RTO (active, standby architecture)
+    - Cold with a highest RTO (no failover or standby strategory)
+- Design Pattern
+    - Circuit breaker: limits requests based on a threshold
+        - Maximum requests per connection
+        - Maximum number of connections
+        - Maximum pending requests
+        - Maximum requests
+        - Maximum retries
+    - Exponential backoff: multiply time between retry requests
+        - Jitter: adds randomness to the exponential backoff (client-side)
+- Failure
+    - Correlated failure: related items fail simultaneously. (reduced by containerizing or microservices)
+    - Cascading failures: active is overwhelmed and stops working. standby try to pick up the load and they are also overwhelmed. (reduced by serving degraded results, load shedding, or graceful degradation)
+- Deployment strategies
+    - Recreate deployment pattern: 
+        - Scale down current version (all instance)
+        - Deploy new version (Simple only one version and downtime required)
+    - Rolling update deployment pattern
+        - Update instance one by one (No downtime)
+        - Slow rollback
+        - Must be backward compatibility current version and new version
+    - Blue/green deployment pattern (red/black)
+        - Perform two identical deployments of your application (Cost and operational overhead)
+        - Blue: current version, Green: new version (Only one version is live at a time)(Zero downtime)
+        - Instant rollback
+        - Must be backward compatibility current version and new version
+- Testing strategies
+    - Canary test pattern
+        - Partial deployment, Percentage of real traffic to new version (Test live production traffic)
+        - Can roll out new version to some region (Zero downtime)
+        - Fast rollback, Slow rollout
+        - Must be backward compatibility current version and new version
+    - A/B test pattern
+        - Some user to A version and Some user to B version (Test live production traffic)
+        - Routing rules often include factors such as browser version, user agent, geolocation, and operating system
+        - Complex setup
+    - Shadow test pattern
+        - Mirrored real traffic to new version (Test live production traffic or replayed, but no user interaction)
+        - Zero production impact (Cost and operational overhead)
+        - Testing new backend features by using the production load
+        - Reduced deployment risk
+    
 ---
 
 - Migrate for Compute Engine
