@@ -297,7 +297,6 @@ Note: Each exam includes 2 case studies for (20~30% of Exam).
         - Class C: 192.168.x.x
     - Cloud DNS
 - Secure
-    - Cloud Armor (DDoS protections for External LB)
     - Firewall
         - Network Tags
     - Packet Mirroring
@@ -374,10 +373,23 @@ Note: Each exam includes 2 case studies for (20~30% of Exam).
 
 - Secure boot and vTPM
 - Security Command Center
+    - Standard tier
+    - Premium tier
 - Identity and Access Management (IAM)
+    - Basic Role (Can't edit)
+    - Pre-defined Role (Can't edit)(Best Practice)
+    - Custom Role
 - Binary Authorization
 - Data Loss Prevention (Cloud DLP API)
-- Cloud Armor
+- Cloud Armor (DDoS protections for External LB)
+    - Policy
+        - Allow rule
+        - Deny rule (Priority 1000)
+        - Targets (Backed service)
+    - Service Tier
+        - Standard
+        - Enterprise Paygo
+        - Enterprise Annual
 
 ### Operation
 
