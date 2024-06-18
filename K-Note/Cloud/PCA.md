@@ -177,14 +177,26 @@ Note: Each exam includes 2 case studies for (20~30% of Exam).
         - Accelerator-optimized: A3, A2, G2
     - Preemptible VM (Only run 24 hr)
         - Spot VM (latest version: No max limit)
-    - Managed Instance Groups (MIGs)
+    - Resilient System Design
+        - Live migration
+        - Distribute your VMs
+        - Zone-specific internal DNS names
+        - Managed Instance Groups (MIGs)
+        - Load balancing
+        - Startup and Shutdown scripts
+        - Backup (file to Cloud Storage, Persistent disk snapshots or replicate)
     - Sole-tenant Nodes (Dedicated Host)
 - Google Kubernet Engine (GKE): Pod, Deployment, StatefulSets, DaemonSets, and Jobs.
-    - Autopilot 
-    - Standard
+    - Alert policy
+    - Mode
+        - Autopilot
+        - Standard
 - App Engine (Based on GKE) Stateful
     - Standard environment (Go, Java, Node.js, Php, Python, Ruby)
     - Flexible environment (Standard, .Net, Custom runtimes)
+    - Memcache service
+        - Shared memcache (free default)
+        - Dedicated memcache (fixed cache)
 - Cloud Run (Based on K-Native) Stateless
 - Cloud Function
     - Event-driven architectures
@@ -192,7 +204,7 @@ Note: Each exam includes 2 case studies for (20~30% of Exam).
 ### Storage
 
 - Object Store
-    - Cloud Storage
+    - Cloud Storage (Lifecycle rule, Versioning, Retention policy)
         - Standard Class
         - Nearline Class (1 month)
         - Coldline Class (3 months)
@@ -211,18 +223,25 @@ Note: Each exam includes 2 case studies for (20~30% of Exam).
 
 ### Database
 
-- Relational
-    - Cloud SQL
-    - Cloud Spanner
-    - Bare Metal Solution
+- Data Warehouse
+    - BigQuery
+- In-memory
+    - Cloud Memorystore
 - Non Relational (NoSQL)
     - Firestore (Firebase) 
-        - Datastore mode
-        - Native mode
-    - Cloud Bigtable
+        - Datastore mode (Key-Value & small entity)
+        - Native mode (Large amount & complex query)
+    - Cloud Bigtable (With row key)
         - 10ms latency
+        - Time-series
         - Petabyte scale
-    - Memorystore
+- Relational (With partition)
+    - Cloud SQL (HA for zone failure)
+        - MySQL
+        - PostgreSQL
+        - SQL Server
+    - Cloud Spanner (Global)
+    - Bare Metal Solution
     
 ### Data Analytics
 
@@ -233,7 +252,10 @@ Note: Each exam includes 2 case studies for (20~30% of Exam).
     - Cloud IoT Core
 - Process
     - Cloud Dataflow
+        - Apache Beam
     - Cloud Dataproc
+        - Apache Spark and Apache Hadoop
+        - Data Mining & Analysis
     - Cloud Dataprep
 - Store
     - Cloud Storage (Data Lake)
@@ -399,6 +421,23 @@ Note: Each exam includes 2 case studies for (20~30% of Exam).
     - Durability: Data protection, RTO (recovery time objective) and RPO (recovery point objective)
     - Availability: Uptime, Health checks, zones or regions
     - Scalability: Handle increased load, autoscaling, managed instance group, metrics (CPU, Request per second), scale in (remove instances) or scale out (add instances)
+- Network Topology
+    - Mirrored pattern (Replicates environment)
+        - Disaster recovery (DR)
+        - Hybrid network (testing and production workload can't communicate)
+        - Development and testing workload in one environment
+        - Staging and production workload in another
+        - Manage and deploy on all environments
+    - Meshed pattern (Connect all)
+        - Hybrid network (can communicate with each other)
+        - Tiered hypride, partitioned multicloud, bursting architectures
+    - Gated patterns
+        - Gated egress (Cloud for accept API private and request to On-premise)
+        - Gated ingress (Request from On-premise and Cloud for service API private)
+        - Gated egress and gated ingress (Both)
+    - Handover pattern (Cloud for Storage)
+        - Analytics hybride multicloud architecture pattern
+        - Streaming or Batch
 - DR Patterns
     - Hot with a low RTO (active, active architecture)
     - Warm with a high RTO (active, standby architecture)
@@ -446,7 +485,13 @@ Note: Each exam includes 2 case studies for (20~30% of Exam).
     
 ---
 
+- Schedule Function
+    1. Cloud Scheduler (trigger)
+    2. Cloud Function (run job)
+    3. Pub/Sub (send message)
+- Cloud Foundation Toolkit
 - Migrate for Compute Engine
+- Database Migration Service
 - Anthos
     - Migrate to Containers (Migrate for Anthos)
 - Apigee
