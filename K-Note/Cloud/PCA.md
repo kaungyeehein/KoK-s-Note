@@ -164,6 +164,8 @@ Note: Each exam includes 2 case studies for (20~30% of Exam).
 
 ---
 
+## Study Note
+
 ### Compute
 
 - Bare Metal Solution
@@ -177,6 +179,10 @@ Note: Each exam includes 2 case studies for (20~30% of Exam).
         - Accelerator-optimized: A3, A2, G2
     - Preemptible VM (Only run 24 hr)
         - Spot VM (latest version: No max limit)
+    - Shielded VM
+        - Secure Boot
+        - vTPM (Virtual trusted platform module)
+        - Integrity Monitoring
     - Resilient System Design
         - Live migration
         - Distribute your VMs
@@ -189,26 +195,31 @@ Note: Each exam includes 2 case studies for (20~30% of Exam).
 - Google Kubernet Engine (GKE): Pod, Deployment, StatefulSets, DaemonSets, and Jobs.
     - Alert policy
     - Mode
-        - Autopilot
+        - Autopilot (Readiness, Liveness)
         - Standard
 - App Engine (Based on GKE) Stateful
-    - Standard environment (Go, Java, Node.js, Php, Python, Ruby)
+    - Standard environment (Go, Java, Node.js, Php, Python, Ruby) (Not support docker directly)
     - Flexible environment (Standard, .Net, Custom runtimes)
     - Memcache service
         - Shared memcache (free default)
         - Dedicated memcache (fixed cache)
 - Cloud Run (Based on K-Native) Stateless
 - Cloud Function
-    - Event-driven architectures
+    - Event-driven architectures (light weight)
+    - Asynchronous (single purpose)
 
 ### Storage
 
 - Object Store
     - Cloud Storage (Lifecycle rule, Versioning, Retention policy)
+        - Multi-region
+        - Regional
         - Standard Class
         - Nearline Class (1 month)
         - Coldline Class (3 months)
         - Archive Class (1 year)
+        - Storage Transfer Service (Terabyte of Data)
+        - Transfer Appliance (Petabyte of Data)
 - Block Store
     - Persistent Disk
         - Standard: HDD
@@ -228,7 +239,7 @@ Note: Each exam includes 2 case studies for (20~30% of Exam).
 - In-memory
     - Cloud Memorystore
 - Non Relational (NoSQL)
-    - Firestore (Firebase) 
+    - Firestore (Firebase, can use offline) 
         - Datastore mode (Key-Value & small entity)
         - Native mode (Large amount & complex query)
     - Cloud Bigtable (With row key)
@@ -236,11 +247,11 @@ Note: Each exam includes 2 case studies for (20~30% of Exam).
         - Time-series
         - Petabyte scale
 - Relational (With partition)
-    - Cloud SQL (HA for zone failure)
+    - Cloud Spanner (Global)
+    - Cloud SQL (HA for zone failure, Limit to same region)
         - MySQL
         - PostgreSQL
         - SQL Server
-    - Cloud Spanner (Global)
     - Bare Metal Solution
     
 ### Data Analytics
@@ -251,7 +262,7 @@ Note: Each exam includes 2 case studies for (20~30% of Exam).
     - Storage Transfer Service
     - Cloud IoT Core
 - Process
-    - Cloud Dataflow
+    - Cloud Dataflow (realtime)
         - Apache Beam
     - Cloud Dataproc
         - Apache Spark and Apache Hadoop
@@ -271,7 +282,7 @@ Note: Each exam includes 2 case studies for (20~30% of Exam).
     - Cloud Data Fusion
     - Data Catalog
     - Data Stream
-    - Cloud Composer
+    - Cloud Composer (Apache Airflow for complex workflows)
 
 ### DevOps
 
@@ -281,14 +292,14 @@ Note: Each exam includes 2 case studies for (20~30% of Exam).
 - Artifact Registry
 - Container Registry 
 - Cloud Deploy
-- Cloud Monitoring
+- Cloud Monitoring (Overall of System)
 - Cloud Logging
 
 ### Cloud Ops
 
-- Cloud Trace
-- Cloud Profiler
-- Cloud Debugger
+- Cloud Trace (Latency of App)
+- Cloud Profiler (Performance of App)
+- Cloud Debugger (State of App)
 
 ### Networking
 
@@ -302,7 +313,7 @@ Note: Each exam includes 2 case studies for (20~30% of Exam).
         - Shared VPC (Same Organization)
         - VPC Network Peering (Diff Organization)
     - VPC to On-premise
-        - Cloud VPN (Low bandwidth using IPsec)
+        - Cloud VPN (Low bandwidth using IPsec, Max 3 Gbps)
             - HA VPN
             - Classic VPN
         - Dedicated Interconnect (Technical requirements exist)
@@ -329,6 +340,8 @@ Note: Each exam includes 2 case studies for (20~30% of Exam).
     - Cloud NAT
 - Scale
     - Cloud Load Balancer
+        - Global Load Balancing (load balancing and fallback)
+        - Cross-Region Load Balancing  (load balancing only)
         - Application Load Balancers: (HTTP(S)) proxy-based Layer 7 with URL map
         
             | Application LB | Built on                  | Multi-Region              | Single-Region      |
@@ -389,7 +402,7 @@ Note: Each exam includes 2 case studies for (20~30% of Exam).
 - Training
     - BigQuery ML
     - Vertex Training
-    - AutoML in Vertex AI
+    - AutoML in Vertex AI (Vision, Tables)
 
 ### Security
 
@@ -482,6 +495,10 @@ Note: Each exam includes 2 case studies for (20~30% of Exam).
         - Zero production impact (Cost and operational overhead)
         - Testing new backend features by using the production load
         - Reduced deployment risk
+- Migrate to Cloud
+    - Lift and Shift (Minimal change)
+    - Improve and Move (Little change, monolith to microservices)
+    - Remove and Replace (Complete change, redesigning and rewriting)
     
 ---
 
@@ -505,3 +522,6 @@ Note: Each exam includes 2 case studies for (20~30% of Exam).
         - Destroyed
     5. **Validate**: Check organization policy (CI/CD)
     6. **Apply**: Create actual infractructure resource
+    
+10.150.0.2 (nic0)   34.86.51.101
+34.150.175.202
