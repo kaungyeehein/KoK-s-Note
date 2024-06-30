@@ -368,7 +368,7 @@ Note: Completely managed solution like `Cloud Spanner` may initially look expens
 
 ---
 
-#### 3.4 Migration Strategies
+### 4 Migration Strategies
 
 - Lift and Shift VM
 	- Export VM image and copy to Cloud Storage
@@ -412,7 +412,7 @@ Note: Completely managed solution like `Cloud Spanner` may initially look expens
 
 ---
 
-#### 3.5 Networking for Secure Database Connectivity
+### 5 Networking for Secure Database Connectivity
 
 - Build secure network
 	- All resources in a project
@@ -447,6 +447,8 @@ Note: Completely managed solution like `Cloud Spanner` may initially look expens
 			- Cloud Router (Regional)
 	- Cloud Storage or Big Query access without External IP
 		- Private Google access on Subnet configuration
+	- Cloud SQL (allow private/public IPs)
+		- Private IPs cannot disable due to APIs and permission after enable
 - Firewall rules
 	- Firewall Name: [network name]-[allow or deny]-[protocol or port]
 	- Default: (All Ingress are Deny and All Egress are Allow)
@@ -458,6 +460,10 @@ Note: Completely managed solution like `Cloud Spanner` may initially look expens
 		- terraform plan
 		- terraform apply -auto-approve
 		- terraform destroy -auto-approve
+
+---
+
+### 6 Migrating SQL Server Databases to Google Cloud
 
 ---
 
