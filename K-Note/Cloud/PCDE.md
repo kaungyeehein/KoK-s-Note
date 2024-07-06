@@ -465,6 +465,89 @@ Note: Completely managed solution like `Cloud Spanner` may initially look expens
 
 ### 6 Migrating SQL Server Databases to Google Cloud
 
+- SQL Server on Compute Engine (Lift & Shift)
+	- Version (2012 to 2019)
+	- Edition (Express, Web, Standard, Enterprise)
+	- Shielded VM (Secure Boot, vTPM, Integrity Monitoring)
+	- Additional disk (64 TB)(Pay for allocated)
+		- SSD is faster
+		- Standard is cheaper
+	- Can setup automated Snapshot backups (best to snapshots at off-peak hours.)
+		- Windows instant
+			- Volume Shadow Copy Service (Online snapshot without shutting down server)
+	- Best practices
+		- Windows Server Advanced Firewall
+		- Operation system default network setting
+		- Microsoft guidance for antivirus software
+		- Separate SSD persistent disk for log and data
+			- Use SSD for tempdb and paging files first
+		- Plan for regularly backups
+			- Snapshots (can’t skip normal SQL Server maintenance)
+			- Regular database and log backups
+		- Cloud Monitoring agent for Microsoft Windows
+	- Pre-configured VM from Marketplace
+	- High Availability
+		- AlwaysOn Availability Groups
+			- Active Directory domain controller
+			- One SQL Main Server (Failover cluster manager service)
+			- One or more replicated Server (Own data replicated from main)
+			- Enterprise edition
+				- IP address for SQL server
+				- Alias IP address or Failover Cluster
+				- Alias IP address for Availability Group Listener
+			- Add databases to availability groups to enable replication
+		- Failover Cluster Instances
+			- Microsoft Storage Spaces Direct (S2D) Virtual SAN from persistent disk (single shared storage device)
+			- 2x SQL Server Enterprise edition (Active, Failover)
+			- Windows Server 2016 or 2019 Datacenter editions
+			- Active Directory domain controller
+			- Internal Google Cloud Load Balancer
+- SQL Server on Cloud SQL (Manged)
+	- Run on Linux
+	- Limited SQL Server version and feature
+		- Not support on Linux as following
+			- SQL Server Reporting Services (SSRS)
+			- SQL Server Analysis Services (SSAS)
+			- AD Authentication
+			- Merge replication
+			- Third-party distributed query
+			- Linked servers
+			- System extended stored procedures
+			- Filetable and Filestream
+			- CLR assemblies marked as Unsafe
+		- Not support on Cloud SQL as following
+			- SQL Server Integration Service (SSIS)
+			- Bulk Insert and Openrowset
+			- Always On Availability Groups
+			- Database Log Shipping
+			- Distributed Transaction Coordinator (MSDTC)
+			- Maintenance Plans
+			- Machine Learning and R Services
+			- T-SQL Endpoints
+			- Resource Governor
+	- Edition
+		- Express    (4CPU, 3.75GB RAM, 10GB)
+		- Web        (16CPU,  64GB RAM, 30TB)
+		- Standard   (24CPU, 104GB RAM, 30TB)
+		- Enterprise (96CPU, 104GB RAM, 30TB)
+	- Automates administration
+		- Backup when low utilization
+		- High Availability create second failover server in another zone
+		- Can define maintenance windows (require reboot)
+- SQL Server on GKE
+	- Benefits
+		- Cross-cloud and hybrid-cloud support
+		- Automated creation of resources
+		- Easy automation for CI/CD pipelines
+		- Run the database on the same cluster as its applications
+	- YAML Configure
+		- Persistent Volume Claims
+			1. mssql-base-volume (base volume)
+			2. mssql-mdf-volume (data volume)
+			3. mssql-ldf-volume (logs volume)
+		- Deployment
+		- Service
+- Security, High Availability and Disaster recovery
 ---
 
 ### Scope
