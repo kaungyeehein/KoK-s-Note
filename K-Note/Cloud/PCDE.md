@@ -547,7 +547,58 @@ Note: Completely managed solution like `Cloud Spanner` may initially look expens
 			3. mssql-ldf-volume (logs volume)
 		- Deployment
 		- Service
-- Security, High Availability and Disaster recovery
+
+---
+
+### 7 Migrating Oracle Databases to Google Cloud
+
+- Bare Metal Solution (Oracle)
+	- Support all Oracle license (Same license cost as on-premises)
+	- Support all Oracle features
+- Technical Specs
+	- OS
+		- RHEL 7.7, 8.1
+		- Oracle Linux 7.7
+		- SUSE 15
+		- Windows 2016, 2019
+		- Other
+	- Hypervisor pre-installed
+		- Oracle OVM 3.4.6
+		- Oracle OLVM
+		- Full control (Hypervisor config, license, patch, etc.)
+	- Physical 16 Cores ~ 112 Cores
+	- Data storage
+		- All Flash NVMe
+		- All Disk Storage
+		- Cloud Storage for backup (Automated snapshot)
+	- Network
+		- High-speed connnection to GCP (100Gbps)(<2ms)
+		- Client connect by VPC and VPC Peering (Using Jump Server or Bastion Host)
+	- Migration
+		- Oracle Native Tools
+			- RMAN Data Pump
+			- Transportable Tablespaces
+			- Data Guard/Active Data Guard
+			- GoldenGate
+		- Google Native Tools
+			- Oracle backup -> Cloud Storage bucket
+			- Oracle backup -> Google Transfer Appliance -> Cloud Storage bucket
+			- Bare Metal Solution -> Cloud Storage bucket
+		- Third party Partners Tools
+			- Lift and Shift tools
+			- Striim for live data migration
+			- Own migration scripts and procedures
+	- Connection
+		- Oracle Tools
+			- Sqlplus client
+			- SQL Developer/Toad
+			- Oracle Enterprise Manager
+			- etc.
+		- SSH or RDP
+	- HA (Oracle RAC)(99.9% SLA)
+		- Regional
+		- Multi-region
+
 ---
 
 ### Scope
