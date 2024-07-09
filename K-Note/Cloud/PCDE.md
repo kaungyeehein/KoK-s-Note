@@ -601,6 +601,51 @@ Note: Completely managed solution like `Cloud Spanner` may initially look expens
 
 ---
 
+### 8 Testing and Monitoring SQL Server Database in Google Cloud
+
+- Structural testing
+	- Validate schema (table, index, foreign key, trigger, login and more)
+	- Fields, data types, lengths and constraints
+- Functional testing
+	- All data
+	- All functions
+- Non-functional testing
+	- Load testing for peak demand
+	- Stress testing to find load at database break
+- Monitoring (Cloud Logging)
+	- Compute Engine VM (No need agent)
+		- CPU usage
+		- Network traffic
+		- Disk I/O
+	- Compute Engine VM (Need agent)
+		- Memory usage
+		- Swap usage
+		- Open TCP connections
+	- Application (Need agent)
+		- Apache Web server
+		- MySQL
+		- Nginx
+		- JVM
+		- IIS
+		- SQL Server
+			- User connections
+			- Transactions
+			- Write transactions
+	- Cloud SQL (No need agent)
+		- CPU utilization
+		- Storage usage
+		- Memory usage
+		- Read/Write operations
+		- Ingress/Egress bytes
+	- Logs Viewer
+		- Can export to external sink (Cloud Storage, BigQuery, Pub/Sub)
+
+---
+
+### 9 Google Cloud Data Migration Service
+
+---
+
 ### Scope
 
 - Database security
