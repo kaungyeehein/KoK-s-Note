@@ -644,6 +644,61 @@ Note: Completely managed solution like `Cloud Spanner` may initially look expens
 
 ### 9 Google Cloud Data Migration Service
 
+Small amount => Direct transfer and Large amount => Staging transfer (Cloud Storage)
+
+- Google Transfer service
+	- Storage Transfer service (Online solution)
+		- Backup from other Cloud (Amazon S3, Azure Storage, http/https)
+		- Backup from on-premise
+		- Store to Google Cloud Storage
+		- Schedule job one time or recurring
+		- Data greater than 1TB
+		- Require min 300Mbps bandwidth
+		- Docker-supported linux server and agent
+	- gcloud command (Online solution)
+		- cp, rsync
+		- Data less than 1TB
+	- Google Transfer Appliance (Hardware solution)
+		- Encrypted automatically and remain safe until decrypted (AES256)
+		- 100TB or 480TB capacity
+		- Can mount as NAS
+	- ETL pipelines
+		- Cloud Data Fusion (Data processing & ETL pipelines)(Base on seed.run app)
+			- Fully managed cloud Native Enterprise Data Integration Service
+			- Clean, Match, Blend, Transform, Partition
+			- Drag & Drop interface
+			- Basic Edition (Development)
+			- Enterprise Edition (Production & Streaming)
+			- Schedule job one time or recurring
+		- Cloud Composer (workflow)(Base on Apache Airflow)
+			- Fully managed environment (flow with simple python code)
+			- Larger work flow (detail pipeline)
+			- Schedule job one time or recurring
+- Third-Party tools (Stream)
+	- MigVisor (Assess, Plan)
+		- Oracle and SQL Server
+		- Database and API
+		- Automatically analyze source database config, attribute, schema, object and features
+	- Striim (Migrate: Deploy)
+		- Online database migration
+		- Replicate data to target database
+		- Move bulk for historical data
+		- Capture change on real-time and synchronize
+		
+---
+
+### 10 Business Case
+
+- Adaption Framework
+	1. Learn: skillup technical
+	2. Lead: Leadership support, Cloud governance
+	3. Scale: Automate
+	4. Secure: Multilayer identity
+- Three phase
+	1. Tactical: Individual
+	2. Strategic: Broader vision
+	3. Transformational: Operation
+
 ---
 
 ### Scope
