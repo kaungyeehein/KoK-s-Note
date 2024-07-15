@@ -674,6 +674,26 @@ Small amount => Direct transfer and Large amount => Staging transfer (Cloud Stor
 			- Fully managed environment (flow with simple python code)
 			- Larger work flow (detail pipeline)
 			- Schedule job one time or recurring
+	- Database Migration Service
+		- Requirement
+			- Database Migration API
+			- Service Networking API
+			- pglogical (PostgreSQL)
+		- Source: (Connection Profile)(On-premise, Amazone, Google, Oracle)
+			- MySQL
+			- PostgreSQL
+			- SQL Server
+			- Oracle
+		- Destination:
+			- Cloud SQL (MySQL, PostgreSQL, SQL Server)
+			- AllobyDB (PostgreSQL)
+		- Job
+			- One time (MySQL)
+			- Continuous (MySQL, PostgreSQL)
+		- Connection
+			- IP allowlist (access from external)
+			- Reverse-SSH tunnel via cloud-hosted VM (access from external, secure, low throughput)
+			- VPC peering (VPC or VPN)
 - Third-Party tools (Stream)
 	- MigVisor (Assess, Plan)
 		- Oracle and SQL Server
@@ -731,3 +751,328 @@ Small amount => Direct transfer and Large amount => Staging transfer (Cloud Stor
 	- Openshift (Kubernets)
 		- Pivotal Cloud Foundry
 
+---
+
+# Lab
+
+## PostgreSQL
+
+### Pglogical
+
+```
+sudo apt install postgresql-13-pglogical
+
+sudo su - postgres -c "gsutil cp gs://cloud-training/gsp918/pg_hba_append.conf ."
+sudo su - postgres -c "gsutil cp gs://cloud-training/gsp918/postgresql_append.conf ."
+sudo su - postgres -c "cat pg_hba_append.conf >> /etc/postgresql/13/main/pg_hba.conf"
+sudo su - postgres -c "cat postgresql_append.conf >> /etc/postgresql/13/main/postgresql.conf"
+
+sudo systemctl restart postgresql@13-main
+```
+
+---
+
+```
+#GSP918 - allow access to all hosts
+host    all all 0.0.0.0/0   md5
+
+#GSP918 - added configuration for pglogical database extension
+
+wal_level = logical         # minimal, replica, or logical
+max_worker_processes = 10   # one per database needed on provider node
+                            # one per node needed on subscriber node
+max_replication_slots = 10  # one per node needed on provider node
+max_wal_senders = 10        # one per node needed on provider node
+shared_preload_libraries = 'pglogical'
+max_wal_size = 1GB
+min_wal_size = 80MB
+
+listen_addresses = '*'         # what IP address(es) to listen on, '*' is all
+```
+
+---
+
+```
+sudo su - postgres
+psql
+\c postgres;
+CREATE EXTENSION pglogical;
+\c orders;
+CREATE EXTENSION pglogical;
+\c gmemegen_db;
+CREATE EXTENSION pglogical;
+\l
+
+CREATE USER migration_admin PASSWORD 'DMS_1s_cool!';
+ALTER DATABASE orders OWNER TO migration_admin;
+ALTER ROLE migration_admin WITH REPLICATION;
+
+\c postgres;
+
+GRANT USAGE ON SCHEMA pglogical TO migration_admin;
+GRANT ALL ON SCHEMA pglogical TO migration_admin;
+
+GRANT SELECT ON pglogical.tables TO migration_admin;
+GRANT SELECT ON pglogical.depend TO migration_admin;
+GRANT SELECT ON pglogical.local_node TO migration_admin;
+GRANT SELECT ON pglogical.local_sync_status TO migration_admin;
+GRANT SELECT ON pglogical.node TO migration_admin;
+GRANT SELECT ON pglogical.node_interface TO migration_admin;
+GRANT SELECT ON pglogical.queue TO migration_admin;
+GRANT SELECT ON pglogical.replication_set TO migration_admin;
+GRANT SELECT ON pglogical.replication_set_seq TO migration_admin;
+GRANT SELECT ON pglogical.replication_set_table TO migration_admin;
+GRANT SELECT ON pglogical.sequence_state TO migration_admin;
+GRANT SELECT ON pglogical.subscription TO migration_admin;
+
+\c orders;
+
+GRANT USAGE ON SCHEMA pglogical TO migration_admin;
+GRANT ALL ON SCHEMA pglogical TO migration_admin;
+
+GRANT SELECT ON pglogical.tables TO migration_admin;
+GRANT SELECT ON pglogical.depend TO migration_admin;
+GRANT SELECT ON pglogical.local_node TO migration_admin;
+GRANT SELECT ON pglogical.local_sync_status TO migration_admin;
+GRANT SELECT ON pglogical.node TO migration_admin;
+GRANT SELECT ON pglogical.node_interface TO migration_admin;
+GRANT SELECT ON pglogical.queue TO migration_admin;
+GRANT SELECT ON pglogical.replication_set TO migration_admin;
+GRANT SELECT ON pglogical.replication_set_seq TO migration_admin;
+GRANT SELECT ON pglogical.replication_set_table TO migration_admin;
+GRANT SELECT ON pglogical.sequence_state TO migration_admin;
+GRANT SELECT ON pglogical.subscription TO migration_admin;
+
+GRANT USAGE ON SCHEMA public TO migration_admin;
+GRANT ALL ON SCHEMA public TO migration_admin;
+
+GRANT SELECT ON public.distribution_centers TO migration_admin;
+GRANT SELECT ON public.inventory_items TO migration_admin;
+GRANT SELECT ON public.order_items TO migration_admin;
+GRANT SELECT ON public.products TO migration_admin;
+GRANT SELECT ON public.users TO migration_admin;
+
+\c gmemegen_db;
+
+GRANT USAGE ON SCHEMA pglogical TO migration_admin;
+GRANT ALL ON SCHEMA pglogical TO migration_admin;
+
+GRANT SELECT ON pglogical.tables TO migration_admin;
+GRANT SELECT ON pglogical.depend TO migration_admin;
+GRANT SELECT ON pglogical.local_node TO migration_admin;
+GRANT SELECT ON pglogical.local_sync_status TO migration_admin;
+GRANT SELECT ON pglogical.node TO migration_admin;
+GRANT SELECT ON pglogical.node_interface TO migration_admin;
+GRANT SELECT ON pglogical.queue TO migration_admin;
+GRANT SELECT ON pglogical.replication_set TO migration_admin;
+GRANT SELECT ON pglogical.replication_set_seq TO migration_admin;
+GRANT SELECT ON pglogical.replication_set_table TO migration_admin;
+GRANT SELECT ON pglogical.sequence_state TO migration_admin;
+GRANT SELECT ON pglogical.subscription TO migration_admin;
+
+GRANT USAGE ON SCHEMA public TO migration_admin;
+GRANT ALL ON SCHEMA public TO migration_admin;
+
+GRANT SELECT ON public.meme TO migration_admin;
+
+\c orders;
+\dt
+
+ALTER TABLE public.distribution_centers OWNER TO migration_admin;
+ALTER TABLE public.inventory_items OWNER TO migration_admin;
+ALTER TABLE public.order_items OWNER TO migration_admin;
+ALTER TABLE public.products OWNER TO migration_admin;
+ALTER TABLE public.users OWNER TO migration_admin;
+\dt
+```
+
+---
+
+### Postgresql on Kubernet
+
+```
+gcloud config set compute/zone "us-central1-b"
+export ZONE=$(gcloud config get compute/zone)
+
+gcloud config set compute/region "us-central1"
+export REGION=$(gcloud config get compute/region)
+
+gcloud services enable artifactregistry.googleapis.com
+
+export PROJECT_ID=$(gcloud config list --format 'value(core.project)')
+export CLOUDSQL_SERVICE_ACCOUNT=cloudsql-service-account
+
+gcloud iam service-accounts create $CLOUDSQL_SERVICE_ACCOUNT --project=$PROJECT_ID
+
+gcloud projects add-iam-policy-binding $PROJECT_ID \
+--member="serviceAccount:$CLOUDSQL_SERVICE_ACCOUNT@$PROJECT_ID.iam.gserviceaccount.com" \
+--role="roles/cloudsql.admin"
+
+gcloud iam service-accounts keys create $CLOUDSQL_SERVICE_ACCOUNT.json \
+    --iam-account=$CLOUDSQL_SERVICE_ACCOUNT@$PROJECT_ID.iam.gserviceaccount.com \
+    --project=$PROJECT_ID
+
+ZONE=us-central1-b
+gcloud container clusters create postgres-cluster \
+--zone=$ZONE --num-nodes=2
+
+kubectl create secret generic cloudsql-instance-credentials \
+--from-file=credentials.json=$CLOUDSQL_SERVICE_ACCOUNT.json
+
+kubectl create secret generic cloudsql-db-credentials \
+--from-literal=username=postgres \
+--from-literal=password=supersecret! \
+--from-literal=dbname=gmemegen_db
+
+gsutil -m cp -r gs://spls/gsp919/gmemegen .
+cd gmemegen
+
+export REGION=us-central1
+export PROJECT_ID=$(gcloud config list --format 'value(core.project)')
+export REPO=gmemegen
+
+gcloud auth configure-docker ${REGION}-docker.pkg.dev
+
+gcloud artifacts repositories create $REPO \
+    --repository-format=docker --location=$REGION
+
+docker build -t ${REGION}-docker.pkg.dev/${PROJECT_ID}/gmemegen/gmemegen-app:v1 .
+
+docker push ${REGION}-docker.pkg.dev/${PROJECT_ID}/gmemegen/gmemegen-app:v1
+
+kubectl create -f gmemegen_deployment.yaml
+
+kubectl get pods
+
+kubectl expose deployment gmemegen \
+    --type "LoadBalancer" \
+    --port 80 --target-port 8080
+
+kubectl describe service gmemegen
+
+POD_NAME=$(kubectl get pods --output=json | jq -r ".items[0].metadata.name")
+kubectl logs $POD_NAME gmemegen | grep "INFO"
+
+gcloud sql connect postgres-gmemegen --user=postgres --quiet
+\c gmemegen_db
+select * from meme;
+```
+
+--
+
+### Cloud SQL CMEK
+
+```
+export PROJECT_ID=$(gcloud config list --format 'value(core.project)')
+gcloud beta services identity create \
+    --service=sqladmin.googleapis.com \
+    --project=$PROJECT_ID
+
+export KMS_KEYRING_ID=cloud-sql-keyring
+export ZONE=$(gcloud compute instances list --filter="NAME=bastion-vm" --format=json | jq -r .[].zone | awk -F "/zones/" '{print $NF}')
+export REGION=${ZONE::-2}
+gcloud kms keyrings create $KMS_KEYRING_ID \
+    --location=$REGION
+
+export KMS_KEY_ID=cloud-sql-key
+gcloud kms keys create $KMS_KEY_ID \
+ --location=$REGION \
+ --keyring=$KMS_KEYRING_ID \
+ --purpose=encryption
+
+export PROJECT_NUMBER=$(gcloud projects describe ${PROJECT_ID} \
+    --format 'value(projectNumber)')
+gcloud kms keys add-iam-policy-binding $KMS_KEY_ID \
+    --location=$REGION \
+    --keyring=$KMS_KEYRING_ID \
+    --member=serviceAccount:service-${PROJECT_NUMBER}@gcp-sa-cloud-sql.iam.gserviceaccount.com \
+    --role=roles/cloudkms.cryptoKeyEncrypterDecrypter
+
+export AUTHORIZED_IP=$(gcloud compute instances describe bastion-vm \
+    --zone=$ZONE \
+    --format 'value(networkInterfaces[0].accessConfigs.natIP)')
+echo Authorized IP: $AUTHORIZED_IP
+
+export CLOUD_SHELL_IP=$(curl ifconfig.me)
+echo Cloud Shell IP: $CLOUD_SHELL_IP
+
+export KEY_NAME=$(gcloud kms keys describe $KMS_KEY_ID \
+    --keyring=$KMS_KEYRING_ID --location=$REGION \
+    --format 'value(name)')
+
+export CLOUDSQL_INSTANCE=postgres-orders
+gcloud sql instances create $CLOUDSQL_INSTANCE \
+    --project=$PROJECT_ID \
+    --authorized-networks=${AUTHORIZED_IP}/32,$CLOUD_SHELL_IP/32 \
+    --disk-encryption-key=$KEY_NAME \
+    --database-version=POSTGRES_13 \
+    --cpu=1 \
+    --memory=3840MB \
+    --region=$REGION \
+    --root-password=supersecret!
+
+gcloud sql instances patch $CLOUDSQL_INSTANCE \
+    --database-flags cloudsql.enable_pgaudit=on,pgaudit.log=all
+
+CREATE DATABASE orders;
+\c orders;
+CREATE EXTENSION pgaudit;
+ALTER DATABASE orders SET pgaudit.log = 'read,write';
+
+export SOURCE_BUCKET=gs://cloud-training/gsp920
+gsutil -m cp ${SOURCE_BUCKET}/create_orders_db.sql .
+gsutil -m cp ${SOURCE_BUCKET}/DDL/distribution_centers_data.csv .
+gsutil -m cp ${SOURCE_BUCKET}/DDL/inventory_items_data.csv .
+gsutil -m cp ${SOURCE_BUCKET}/DDL/order_items_data.csv .
+gsutil -m cp ${SOURCE_BUCKET}/DDL/products_data.csv .
+gsutil -m cp ${SOURCE_BUCKET}/DDL/users_data.csv .
+
+export CLOUDSQL_INSTANCE=postgres-orders
+export POSTGRESQL_IP=$(gcloud sql instances describe $CLOUDSQL_INSTANCE --format="value(ipAddresses[0].ipAddress)")
+export PGPASSWORD=supersecret!
+psql "sslmode=disable user=postgres hostaddr=${POSTGRESQL_IP}" \
+    -c "\i create_orders_db.sql"
+
+CREATE ROLE auditor WITH NOLOGIN;
+ALTER DATABASE orders SET pgaudit.role = 'auditor';
+GRANT SELECT ON order_items TO auditor;
+
+export USERNAME=$(gcloud config list --format="value(core.account)")
+export CLOUDSQL_INSTANCE=postgres-orders
+export POSTGRESQL_IP=$(gcloud sql instances describe $CLOUDSQL_INSTANCE --format="value(ipAddresses[0].ipAddress)")
+export PGPASSWORD=$(gcloud auth print-access-token)
+psql --host=$POSTGRESQL_IP $USERNAME --dbname=orders
+
+gcloud sql connect postgres-orders --user=postgres --quiet
+\c orders
+GRANT ALL PRIVILEGES ON TABLE order_items TO "student-01-af8b67e7d10f@qwiklabs.net";
+\q
+```
+
+---
+
+### Replication and Point-in-Time-Recovery
+
+```
+export CLOUD_SQL_INSTANCE=postgres-orders
+gcloud sql instances describe $CLOUD_SQL_INSTANCE
+
+date +"%R"
+
+gcloud sql instances patch $CLOUD_SQL_INSTANCE \
+    --backup-start-time=HH:MM
+
+gcloud sql instances describe $CLOUD_SQL_INSTANCE --format 'value(settings.backupConfiguration)'
+
+gcloud sql instances patch $CLOUD_SQL_INSTANCE \
+     --enable-point-in-time-recovery \
+     --retained-transaction-log-days=1
+
+date --rfc-3339=seconds
+(or)
+date -u --rfc-3339=ns | sed -r 's/ /T/; s/\.([0-9]{3}).*/\.\1Z/'
+
+export NEW_INSTANCE_NAME=postgres-orders-pitr
+gcloud sql instances clone $CLOUD_SQL_INSTANCE $NEW_INSTANCE_NAME \
+    --point-in-time 'TIMESTAMP'
+```
