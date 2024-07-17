@@ -681,7 +681,7 @@ Small amount => Direct transfer and Large amount => Staging transfer (Cloud Stor
 			- pglogical (PostgreSQL)
 		- Source: (Connection Profile)(On-premise, Amazone, Google, Oracle)
 			- MySQL
-			- PostgreSQL
+			- PostgreSQL (All tables have Primary Key)
 			- SQL Server
 			- Oracle
 		- Destination:
@@ -1076,3 +1076,94 @@ export NEW_INSTANCE_NAME=postgres-orders-pitr
 gcloud sql instances clone $CLOUD_SQL_INSTANCE $NEW_INSTANCE_NAME \
     --point-in-time 'TIMESTAMP'
 ```
+
+---
+
+## Cloud Spanner
+
+### Create with Cloud Shell
+
+```
+gcloud services enable spanner.googleapis.com
+
+gcloud spanner instances create banking-instance-2 \
+--config=regional-us-east4  \
+--description="Banking Instance 2" \
+--nodes=2
+
+gcloud spanner instances list
+
+gcloud spanner databases create banking-db-2 --instance=banking-instance-2
+
+gcloud spanner databases ddl update banking-db --instance=banking-instance-2 \
+ --ddl="CREATE TABLE Customer (CustomerId STRING(36) NOT NULL, Name STRING(MAX) NOT NULL, Location STRING(MAX) NOT NULL) PRIMARY KEY (CustomerId)"
+
+gcloud spanner databases ddl update banking-db --instance=banking-instance-2 \
+ --ddl="ALTER TABLE Customer ADD COLUMN CustomerBudget INT64;"
+
+gcloud spanner databases execute-sql banking-db --instance=banking-instance-2 \
+ --sql="INSERT INTO Customer (CustomerId, Name, Location) VALUES ('bdaaaa97-1b4b-4e58-b4ad-84030de92235', 'Richard Nelson', 'Ada Ohio')"
+
+gcloud spanner instances update banking-instance-2 --nodes=1
+gcloud spanner instances list
+
+gcloud spanner instances delete banking-instance-2
+```
+
+---
+
+### Create with Terraform
+
+nano spanner.tf
+```
+resource "google_spanner_instance" "banking-instance-3" {
+  name         = "banking-instance-3"
+  config       = "regional-us-east4"
+  display_name = "Banking Instance 3"
+  num_nodes    = 2
+  labels = {
+  }
+}
+```
+
+---
+
+### Data Insert with Dataflow
+
+```
+gsutil mb gs://qwiklabs-gcp-03-0e452a4498c3
+touch emptyfile
+gsutil cp emptyfile gs://qwiklabs-gcp-03-0e452a4498c3/tmp/emptyfile
+
+gcloud services disable dataflow.googleapis.com --force
+gcloud services enable dataflow.googleapis.com
+
+gcloud dataflow jobs run spanner-load --gcs-location gs://dataflow-templates-us-west1/latest/GCS_Text_to_Cloud_Spanner --region us-west1 --staging-location gs://$DEVSHELL_PROJECT_ID/tmp/ --parameters instanceId=banking-instance,databaseId=banking-db,importManifest=gs://cloud-training/OCBL372/manifest.json
+```
+
+---
+
+### Data Insert with Client Library (Python)
+
+```
+mkdir python-helper
+cd python-helper
+
+wget https://storage.googleapis.com/cloud-training/OCBL373/requirements.txt
+wget https://storage.googleapis.com/cloud-training/OCBL373/snippets.py
+
+virtualenv env
+source env/bin/activate
+pip install -r requirements.txt
+
+python snippets.py banking-ops-instance --database-id  banking-ops-db insert_data
+python snippets.py banking-ops-instance --database-id  banking-ops-db query_data
+python snippets.py banking-ops-instance --database-id  banking-ops-db add_column
+python snippets.py banking-ops-instance --database-id  banking-ops-db update_data
+python snippets.py banking-ops-instance --database-id  banking-ops-db query_data_with_new_column
+python snippets.py banking-ops-instance --database-id  banking-ops-db add_index
+python snippets.py banking-ops-instance --database-id  banking-ops-db read_data_with_index
+python snippets.py banking-ops-instance --database-id  banking-ops-db add_storing_index
+python snippets.py banking-ops-instance --database-id  banking-ops-db read_data_with_storing_index
+```
+
