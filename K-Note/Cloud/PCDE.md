@@ -1167,3 +1167,288 @@ python snippets.py banking-ops-instance --database-id  banking-ops-db add_storin
 python snippets.py banking-ops-instance --database-id  banking-ops-db read_data_with_storing_index
 ```
 
+---
+
+## Bigtable
+
+### Bigtable CLI
+
+```
+echo project = `gcloud config get-value project` \
+    >> ~/.cbtrc
+cbt listinstances
+echo instance = personalized-sales \
+    >> ~/.cbtrc
+cat ~/.cbtrc
+cbt ls
+
+cbt createtable test-sessions
+cbt createfamily test-sessions Interactions
+cbt createfamily test-sessions Sales
+cbt ls test-sessions
+
+cbt set test-sessions green1939#1638940844260 Interactions:red_hat=seen
+cbt set test-sessions blue2737#1638940844260 Sales:sale=blue_dress#blue_jacket
+cbt read test-sessions
+cbt deletetable test-sessions
+
+cbt read UserSessions \
+    count=5
+cbt read UserSessions \
+    prefix=yellow \
+    count=10
+cbt read UserSessions \
+    start=yellow941#1638940844381 \
+    end=yellow991#1638940844645
+cbt lookup UserSessions \
+    yellow582#1638940844260
+cbt read UserSessions count=5 \
+    columns="Interactions:.*"
+cbt read UserSessions count=5 \
+    columns="Interactions:green_jacket"
+cbt read UserSessions count=5 \
+    columns="Sales:sale"
+```
+
+---
+
+### Data Insert with Dataflow from Cloud Storage
+
+```
+export ZONE=us-west3-c
+export REGION="${ZONE%-*}"
+
+gcloud services disable dataflow.googleapis.com
+gcloud services enable dataflow.googleapis.com
+
+gcloud bigtable instances create personalized-sales \
+            --display-name="Personalized Sales" \
+            --cluster-config=id=personalized-sales-c1,zone=$ZONE
+
+cbt -instance personalized-sales createtable UserSessions
+cbt -instance personalized-sales createfamily UserSessions Interactions
+cbt -instance personalized-sales createfamily UserSessions Sales
+cbt -instance personalized-sales lookup UserSessions
+
+gsutil mb gs://$DEVSHELL_PROJECT_ID/
+
+gcloud dataflow jobs run import-usersessions --gcs-location gs://dataflow-templates-$REGION/latest/GCS_SequenceFile_to_Cloud_Bigtable --region $REGION --staging-location gs://$DEVSHELL_PROJECT_ID/temp --parameters bigtableProject=$DEVSHELL_PROJECT_ID,bigtableInstanceId=personalized-sales,bigtableTableId=UserSessions,sourcePattern=gs://cloud-training/OCBL377/retail-interactions-sales-00000-of-00001,mutationThrottleLatencyMs=0
+```
+
+---
+
+### Data Insert with Dataflow from Pub/Sub
+
+```
+gcloud bigtable instances create sandiego \
+--display-name="San Diego Traffic Sensors" \
+--cluster-storage-type=SSD \
+--cluster-config=id=sandiego-traffic-sensors-c1,zone=us-east4-b,nodes=1
+
+gcloud bigtable clusters update sandiego-traffic-sensors-c1 \
+--instance=sandiego \
+--autoscaling-min-nodes=1 \
+--autoscaling-max-nodes=3 \
+--autoscaling-cpu-target=60
+
+echo project = `gcloud config get-value project` \
+    >> ~/.cbtrc
+echo instance = sandiego \
+    >> ~/.cbtrc
+cat ~/.cbtrc
+
+cbt createtable current_conditions \
+    families="lane"
+```
+
+---
+
+```
+git clone https://github.com/GoogleCloudPlatform/training-data-analyst
+source /training/project_env.sh
+/training/sensor_magic.sh
+
+source /training/project_env.sh
+cd ~/training-data-analyst/courses/streaming/process/sandiego
+./run_oncloud.sh $DEVSHELL_PROJECT_ID $BUCKET CurrentConditions --bigtable
+
+gcloud dataflow jobs list
+gcloud dataflow jobs cancel JOB_ID --force
+
+cbt deletetable current_conditions
+gcloud bigtable instances delete sandiego
+```
+
+---
+
+## AlloyDB
+
+### AlloyDB CLI
+
+```
+gcloud beta alloydb clusters create gcloud-lab-cluster \
+    --password=Change3Me \
+    --network=peering-network \
+    --region=us-east1 \
+    --project=qwiklabs-gcp-00-a7c7b0a9c4bf
+
+gcloud beta alloydb instances create gcloud-lab-instance\
+    --instance-type=PRIMARY \
+    --cpu-count=2 \
+    --region=us-east1  \
+    --cluster=gcloud-lab-cluster \
+    --project=qwiklabs-gcp-00-a7c7b0a9c4bf
+
+gcloud beta alloydb clusters list
+
+gcloud beta alloydb clusters delete gcloud-lab-cluster \
+    --force \
+    --region=us-east1 \
+    --project=qwiklabs-gcp-00-a7c7b0a9c4bf
+```
+
+---
+
+```
+export ALLOYDB=ALLOYDB_ADDRESS
+echo $ALLOYDB  > alloydbip.txt
+psql -h $ALLOYDB -U postgres
+
+CREATE TABLE regions (
+    region_id bigint NOT NULL,
+    region_name varchar(25)
+) ;
+
+ALTER TABLE regions ADD PRIMARY KEY (region_id);
+
+INSERT INTO regions VALUES ( 1, 'Europe' );
+INSERT INTO regions VALUES ( 2, 'Americas' );
+INSERT INTO regions VALUES ( 3, 'Asia' );
+INSERT INTO regions VALUES ( 4, 'Middle East and Africa' );
+
+SELECT region_id, region_name from regions;
+\q
+
+gsutil cp gs://cloud-training/OCBL403/hrm_load.sql hrm_load.sql
+psql -h $ALLOYDB -U postgres
+\i hrm_load.sql
+\dt
+
+gcloud beta alloydb instances create SAMPLE-READ-POOL-INSTANCE-ID \
+	--instance-type=READ_POOL \
+	--cpu-count=2 \
+	--read-pool-node-count=2 \
+	--region=GCP_REGION_VALUE  \
+	--cluster=SAMPLE-CLUSTER-ID  \
+	--project=QWIKLABS_PROJECT_ID
+
+gcloud beta alloydb backups create SAMPLE-BACKUP_ID \
+    --cluster=SAMPLE-CLUSTER-ID \
+    --region=GCP_REGION_VALUE \
+    --project=QWIKLABS_PROJECT_ID
+```
+
+---
+
+### Migrating to AlloyDB from PostgreSQL Using Database Migration Service
+
+```
+sudo -u postgres psql
+\dt
+select count (*) as countries_row_count from countries;
+select count (*) as departments_row_count from departments;
+select count (*) as employees_row_count from employees;
+select count (*) as jobs_row_count from jobs;
+select count (*) as locations_row_count from locations;
+select count (*) as regions_row_count from regions;
+
+select region_id, region_name from regions;
+
+export ALLOYDB=ALLOYDB_ADDRESS
+echo $ALLOYDB  > alloydbip.txt
+psql -h $ALLOYDB -U postgres
+\dt
+```
+
+---
+
+### Migrating to AlloyDB from PostgreSQL Using PostgreSQL Tools
+
+```
+sudo -u postgres pg_dump -Fc postgres > pg14_source.DMP
+ls -l -h pg14_source.DMP
+gsutil cp pg14_source.DMP gs://qwiklabs-gcp-00-4bd522985b78/pg14_source.DMP
+
+export ALLOYDB=ALLOYDB_ADDRESS
+echo $ALLOYDB  > alloydbip.txt
+psql -h $ALLOYDB -U postgres
+\dt
+\q
+
+gsutil cp  gs://qwiklabs-gcp-00-4bd522985b78/pg14_source.DMP pg14_source.DMP
+
+pg_restore -l  pg14_source.DMP | sed -E 's/(.* EXTENSION )/; \1/g' >  pg14_source_toc.toc
+
+pg_restore -h $ALLOYDB -U postgres \
+  -d postgres \
+  -L pg14_source_toc.toc \
+  pg14_source.DMP
+
+```
+
+---
+
+### Administering AlloyDB
+
+```
+export ALLOYDB=ALLOYDB_ADDRESS
+echo $ALLOYDB  > alloydbip.txt
+psql -h $ALLOYDB -U postgres
+
+\c postgres
+CREATE EXTENSION IF NOT EXISTS PGAUDIT;
+select extname, extversion from pg_extension where extname = 'pgaudit';
+\q
+
+export ALLOYDB=$(cat alloydbip.txt)
+pgbench -h $ALLOYDB -U postgres -i -s 50 -F 90 -n postgres
+
+psql -h $ALLOYDB -U postgres
+select count (*) from pgbench_accounts;
+\q
+
+pgbench -h $ALLOYDB -U postgres -c 50 -j 2 -P 30 -T 180 postgres
+```
+
+---
+
+### Accelerating Analytical Queries using the AlloyDB Columnar Engine
+
+```
+export ALLOYDB=ALLOYDB_ADDRESS
+echo $ALLOYDB  > alloydbip.txt
+pgbench -h $ALLOYDB -U postgres -i -s 500 -F 90 -n postgres
+
+psql -h $ALLOYDB -U postgres
+select count (*) from pgbench_accounts;
+
+\timing on
+SELECT aid, bid, abalance FROM pgbench_accounts WHERE bid < 189  OR  abalance > 100 LIMIT 20;
+EXPLAIN (ANALYZE,COSTS,SETTINGS,BUFFERS,TIMING,SUMMARY,WAL,VERBOSE)
+  SELECT count(*) FROM pgbench_accounts WHERE bid < 189  OR  abalance > 100;
+
+  Planning Time: 0.128 ms
+  Execution Time: 13074.968 ms
+
+\c postgres
+\dx
+CREATE EXTENSION IF NOT EXISTS google_columnar_engine;
+SELECT google_columnar_engine_add('pgbench_accounts');
+
+EXPLAIN (ANALYZE,COSTS,SETTINGS,BUFFERS,TIMING,SUMMARY,WAL,VERBOSE)
+  SELECT count(*) FROM pgbench_accounts WHERE bid < 189  OR  abalance > 100;
+
+  Planning Time: 1.922 ms
+  Execution Time: 15.670 ms
+```
+
