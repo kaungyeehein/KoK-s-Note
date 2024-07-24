@@ -6,6 +6,7 @@
 	- [Cloud Digital Leader (CDL)](Cloud/CDL.md)
 	- [Associate Cloud Engineer (ACE)](Cloud/ACE.md)
 	- [Professional Cloud Architech (PCA)](Cloud/PCA.md)
+	- [Professional Data Engineer (PDE)](Cloud/PDE.md)
 	- [Professional Cloud Database Engineer (PCDE)](Cloud/PCDE.md)
 - Azure
 - AWS
