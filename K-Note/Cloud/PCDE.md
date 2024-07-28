@@ -242,8 +242,6 @@ Note: Data Backup work in Maintenance Time or Maintenance Windows.
 		- nam-eur-asia1 (Iowa/Belgium/Taiwan)
 	- 1 node per 2 TB of data (Monitor to keep under 65% CPU usage)
 		
-Note: Need to do lab for Read Replica
-
 ---
 
 #### 2.2 Estimating Costs
@@ -750,6 +748,253 @@ Small amount => Direct transfer and Large amount => Staging transfer (Cloud Stor
 - Red Hat (Private Cloud)
 	- Openshift (Kubernets)
 		- Pivotal Cloud Foundry
+
+---
+
+# General Best Practices for Cloud SQL
+
+## Instance configuration and administration
+
+#### [Common]
+
+- Read and follow the `operational guidelines` for SLA
+- Configure a `maintenance window`
+	- Maintenance settings
+		- Maintenance timing
+			- Any: the maintenance update can happen at any time, but typically happens within Week 1.
+			- Week 1: the maintenance happens 7 to 14 days after the maintenance notification is sent out. (Test and development instance)
+			- Week 2: the maintenance update happens 15 to 21 days after the notification is sent out.	(Production instance)
+			- Week 5: the maintenance update happens 35 to 42 days after the notification is sent out.
+		- Maintenance window. The day of the week and the hour in which Cloud SQL schedules maintenance. Maintenance windows last for one hour.
+		- Deny maintenance period. A block of days in which Cloud SQL does not schedule maintenance. You can set a deny maintenance period for up to 90 days long.
+	- Time-sensitive maintenance
+		- In very rare cases, Cloud SQL might need to schedule maintenance outside of your maintenance settings to patch severe stability issues or vulnerabilities that are time-sensitive. These updates are delivered rapidly, and Cloud SQL counts them as downtime against the SLA.
+	- Self-service maintenance
+		- You need an update sooner than your next scheduled maintenance event.
+		- You want to catch up to the latest software after skipping your most recent maintenance update.
+- For read-heavy workloads, add `read replicas`
+- If you delete and recreate instances regularly, use a `timestamp in the instance ID`
+- Don't start an administrative operation before the previous operation has completed.
+- Ensure you have at least `20% available space` to accommodate any critical database maintenance operations
+- Prevent `over-utilization` of your CPU
+- Avoid `memory exhaustion`, To avoid out-of-memory errors, we recommend that this metric remains below 90%
+
+#### [Postgres Only]
+
+- Make sure your instance has `optimal transaction IDs`. Prevent transaction ID wraparound. If the transaction ID utilization trends towards very high values (80% or more) 2 billion, the database might be at risk of transaction ID exhaustion. Transaction ID utilization reaching 100% is termed as transaction ID wraparound, PostgreSQL stops accepting write queries.
+
+#### [SQL Server Only]
+
+- Set SQL Server settings so that they work optimally for Cloud SQL.
+	- Global configuration settings
+		- max worker threads: Retain the default value of 0. This setting defines the number of threads available to SQL Server based on the number of CPUs. The value is automatically calculated by the SQL Server engine at startup.
+		- max server memory (MB)
+			- Reserve 1.4 GB of memory for the OS and agents
+			- If the RAM on the server is less than or equal to 16 GB, then reserve 1 GB of memory for each 4 GB of RAM.
+			- If the RAM on the server is greater than 16 GB, then leave 4 GB of memory and reserve 1 GB of memory for each 8 GB of RAM that's greater than 16 GB.
+			- For this example, you must reserve 16.4 GB of memory. As a result, for the value of this flag, specify 89702 MB `[(104-(1.4+4+11)) * 1024 = 89702]`.
+	- Database settings to modify
+		- cost threshold for parallelism
+			- The default value of 5 can cause too many queries to run in parallel, thereby increasing database wait time on parallel threads. To reduce this type of contention, increase the value.
+		- max degree of parallelism (MAXDOP)
+			- To reduce database waits due to parallelism, adjust this value based on specific recommendations about the number of logical processors available.
+		- optimize for ad hoc workloads
+			- Avoid having a large number of single-use plans in the plan cache. To improve the efficiency of the plan cache for workloads that contain many single use ad hoc batches, set this option to 1.
+		- tempdb
+			- If the number of processors is less than or equal to 8, use the same number of files as logical processors. If the number of processors is greater than 8, use 8 data files. If contention continues, increase the number of files by multiples of 4 until there is no further contention.
+	- Depending on your workload, you might want to modify the following settings as well.
+		- Close Cursor on Commit Enabled
+			- The default value is off, which means that cursors are not closed automatically when you commit a transaction.
+		- Default Cursor
+			- 	This option controls the scope of a cursor used in T-SQL code. If you change this setting, evaluate the application code for any adverse effects.
+		- Page Verify
+			- This option allows SQL Server to calculate a checksum for a database page before it is written to disk and store the checksum in the page header. When a page is read again, the checksum is recomputed to verify the integrity of the page. The recommended value is checksum.
+		- Parameterization
+			- The default value is simple. Simple parameterization allows SQL Server to replace literal values in a query with parameters. Microsoft provides guidelines about how to change this value and use it with plan guides.
+	- Database settings to retain
+		- For optimal performance of the SQL Server database, retain the default values of the following SQL Server settings.
+			- Auto Close
+			- Auto Shrink
+			- Date Correlation Optimization Enabled
+			- Legacy Cardinality Estimation
+			- Parameter Sniffing
+			- Query Optimizer Fixes
+			- Auto Create Statistics
+			- Auto Update Statistics
+			- Auto Update Statistics Asynchronously
+			- Target Recovery Time (Seconds)
+	- Trace flag settings
+		- Trace flags in SQL Server are used to set certain characteristics, alter the behavior of SQL Server databases, or debug issues in SQL Server.
+			- 1204: Yes, except for workload-intensive servers that generate a lot of deadlocks.
+			- 1222: Yes, except for workload-intensive servers that generate a lot of deadlocks.
+			- 1224: No. This can result in more memory usage and cause memory pressure on the database.
+			- 2528: No. Parallel checking of objects is the default and is recommended. The degree of parallelism is automatically calculated by the database engine.
+			- 3205: No. Tape drives for backups is a feature of Cloud SQL for SQL Server.
+			- 3226: No, unless you need frequent backups, such as TLOG backups.
+			- 3625: No. Because the root account does not have system administrator access, it might not be able to see all error messages.
+			- 4199: No. This affects the cardinality estimator and can lead to query regression.
+			- 4616: No. This restriction lowers the security around application roles. It needs to be validated based on application requirements.
+			- 7806: Yes. If the database server becomes unresponsive, the dedicated admin connection (DAC) might be the only way to make a connection for diagnostics.
+- Tune the instance optimally for test runs.
+	- vCPU: 40
+	- Memory: 262144 MB
+	- MAXDOP: 8
+	- Cost threshold for parallelism: 120
+	- tempdb files: 8. Pre-sized to prevent autogrowth.
+	- User database files: Autogrow set in 64-128 MB. Presized to prevent autogrowth.
+	- Storage: >= 4TB for the best IOPS
+- Determine the capacity of the I/O subsystem before you deploy SQL Server.
+	- The storage type being used in Cloud SQL is PD SSD, which is suitable for high-performance enterprise-level workloads.
+		- A disk size of 4TB or greater provides more throughput and IOPS.
+		- Higher vCPU provides more IOPS and throughput. When using higher vCPU, monitor the DB waits for parallelism, which might also increase.
+		- For optimal performance, issue I/O in parallel to achieve a higher I/O queue depth.
+	- Prevent index fragmentation and missing indexes.
+	- Update statistics regularly
+	- Prevent database files from becoming unnecessarily large
+	- Detect database integrity issues by running `DBCC CHECKDB` at least once a week
+
+
+## Data architecture
+
+#### [Common]
+
+- Split your large instances into `smaller instances`, where possible.
+- Don't use too many databases or database tables. `<500 database` `<50,000 tables`
+- [MySQL] Make sure your tables have a `primary or unique key` because Cloud SQL uses row-based replication
+
+## Application implementation
+
+#### [Common]
+
+- Use good connection management practices, such as `connection pooling` and `exponential backoff`.
+- Test your application's response to `maintenance updates`
+- Test your application's response to `failovers`
+- `Avoid large transactions`. Keep transactions small and short.
+- If using Cloud SQL Auth Proxy, use up-to-date version.
+
+## Data import and export
+
+#### [Common]
+
+- Take the export from a `read replica`.
+- Use `serverless exports`, offload the export operation to a temporary instance. A serverless export takes longer to do than a standard export.
+- `Speed up imports` for small instance sizes by temporarily increasing the CPU and RAM
+- If you are exporting data for import into Cloud SQL, be sure to use the proper procedure.
+- When migrating data with an export and import, use the exact `same SQL mode` for the import as the export.
+
+## Backup and recovery
+
+#### [Common]
+
+- Protect your data with the appropriate Cloud SQL functionality
+	- `Backups are lightweight`. If you delete the instance, the backups are also deleted. You can't back up a single database or table. And if the region where the instance is located is unavailable, you cannot restore the instance from that backup, even in an available region.
+	- `Point-in-time recovery` helps you recover an instance to a specific point in time. A point-in-time recovery always creates a new instance; you cannot perform a point-in-time recovery to an existing instance.
+	- `Exports` take longer to create, because an external file is created in Cloud Storage that can be used to recreate your data. Exports are unaffected if you delete the instance. In addition, you can export only a single database or even table, depending on the export format you choose.
+- Size instances to account for transaction (binary) log retention
+	- High write activity to the database can generate a large volume of transaction (binary) logs, which can consume significant disk space, and lead to disk growth for instances enabled to increase storage automatically. We recommend sizing instance storage to account for transaction log retention.
+- Protect your instance and backups from accidental deletion.
+	- Use the export feature in Cloud SQL to export your data for additional protection. Use `Cloud Scheduler` with the `REST API` to automate export management.
+	- For more advanced scenarios, `Cloud Scheduler` with `Cloud Functions` for automation.
+
+## Tune and monitor
+
+#### [Postgres Only]
+
+- Standard VACUUM:
+	- reclaim less disk space but run in parallel with production database operations
+- VACUUM FULL:
+	- Reclaim more disk space but exclusively locks the table and runs slowly
+
+Recommendations for VACUUM
+
+- Increase system memory and `maintenance_work_mem`
+- VACUUM operation generates a lot of write-ahead log (WAL) records. If it's possible to reduce the number of WAL records, such as by having no replicas configured for this instance, the operation completes more quickly.
+- If the table has reached the two billion transaction IDs limit, One possible option is to set vacuum_freeze_min_age=1,000,000,000 (the maximum allowed value, up from the default of 50,000,000). This new value reduces the number of tuples frozen up to two times.
+- PostgreSQL version 12.0 and later versions support cleanup and VACUUM operations without cleaning the index entries. This is crucial, as cleaning the index requires a complete index scan, and if there are multiple indexes, then the total time depends on index size.
+- Larger indexes consume a significant amount of time for the index scan, therefore INDEX_CLEANUP OFF is preferred to quickly clean up and freeze the table data. PostgreSQL versions before 12.0 need to tune the number of indexes. That is, if there are non-critical indexes, then it might be helpful to drop the NON-CRITICAL index to speed up the vacuum operation.
+
+---
+
+# General Best Practices for Cloud Spanner
+
+## SQL best practices
+
+#### Query parameters
+
+- Pre-optimized plans: Queries that use parameters can be executed faster on each invocation because the parameterization makes it easier for Spanner to cache the execution plan.
+- Simplified query composition: You do not need to escape string values when providing them in query parameters. Query parameters also reduce the risk of syntax errors.
+- Security: Query parameters make your queries more secure by protecting you from various SQL injection attacks. This protection is especially important for queries that you construct from user input.
+
+#### Secondary indexes
+
+- Like other relational databases, Spanner offers secondary indexes, which you can use to retrieve data using either a SQL statement or Spanner's read interface.
+- Using a STORING clause (for the GoogleSQL dialect) or an INCLUDE clause (for the PostgreSQL dialect) like this costs extra storage but it provides the following advantages:
+	- `CREATE INDEX SingersByLastName ON Singers (LastName) STORING (FirstName);`
+		- Using a `STORING` clause (for the GoogleSQL dialect) or an `INCLUDE` clause (for the PostgreSQL dialect) like this costs extra storage but it provides the following advantages:
+			- SQL queries that use the index and select columns stored in the STORING or INCLUDE clause do not require an extra join to the base table.
+			- Read calls that use the index can read columns stored in the STORING or INCLUDE clause.
+	- `CREATE INDEX AlbumsByReleaseDateTitleDesc on Albums (ReleaseDate, AlbumTitle DESC);`
+		- his query and index definition meet both of the following criteria:
+			- To remove the sorting step, ensure that the column list in the ORDER BY clause is a prefix of the index key list.
+			- To avoid joining back from the base table to fetch any missing columns, ensure that the index covers all columns in the table that the query uses.
+
+#### Optimize scans
+
+- Scan Method
+	- Automatic
+	- Vectorized: batch-oriented processing
+		- Large scans over infrequently updated data.
+		- Scans with predicates on fixed width columns.
+		- Scans with large seek counts. (A seek uses an index to retrieve records.)
+	- Scalar: row-oriented processing
+		- Point lookup queries: queries that only fetch one row.
+		- Small scan queries: table scans that only scan a few rows unless they have large seek counts.
+		- Queries that use LIMIT.
+		- Queries that read high churn data: queries in which more than ~10% of the data read is frequently updated.
+		- Queries with rows containing large values: large value rows are those containing values larger than 32,000 bytes (pre-compression) in a single column.
+- Enforce Scan Method
+	- Query
+		- `/*@ scan_method=batch */`
+		- `/*@ scan_method=row */`
+	- table level
+	- statement level
+
+#### Optimize range key lookups
+
+If the list of keys is sparse and not adjacent, use query parameters and UNNEST to construct your query.
+For example, if your key list is {1, 5, 1000}, write the query like this:
+```
+SELECT *
+FROM Table AS t
+WHERE t.Key IN UNNEST ($1) # @KeyList for GoogleSQL and $1 for PostgreSQL
+
+SELECT *
+FROM Table AS t
+WHERE t.Key BETWEEN $1 AND $2
+```
+
+#### Optimize joins
+
+- If possible, join data in interleaved tables by primary key.
+- Use the join directive if you want to force the order of the join. (HASH_JOIN, APPLY_JOIN)
+	- PostgreSQL: `JOIN/*@ FORCE_JOIN_ORDER=TRUE */`, `JOIN/*@ JOIN_METHOD=HASH_JOIN */`
+	- GoogleSQL: `JOIN@{FORCE_JOIN_ORDER=TRUE}`, `JOIN@{JOIN_METHOD=HASH_JOIN}`
+
+#### Avoid large reads inside read-write transactions
+
+- Read-only transactions allow for higher aggregate throughput because they do not use locks.
+
+#### Use ORDER BY to ensure the ordering of your SQL results
+
+- Spanner does not guarantee that the results of this query will be in primary key order without `ORDER BY`.
+
+#### Use STARTS_WITH instead of LIKE
+
+- When a LIKE pattern has the form foo% and the column is indexed, use `STARTS_WITH` instead of `LIKE`.
+
+#### Use commit timestamps
+
+- If your application needs to query data written after a particular time, add commit timestamp columns to the relevant tables. Commit timestamps enable a Spanner optimization that can reduce the I/O of queries whose WHERE clauses restrict results to rows written more recently than a specific time.
 
 ---
 
