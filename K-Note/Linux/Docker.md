@@ -201,8 +201,9 @@ networks:
 Build Image
 ```shell
 docker-compose build
-docker-compose up –d
+docker-compose up -d
 docker-compose down
+docker-compose down -v # To delete all data run:
 docker-compose ps
 ```
 
