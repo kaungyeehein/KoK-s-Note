@@ -77,6 +77,8 @@ docker-compose up -d
 docker-compose down
 docker-compose down -v # To delete all data run:
 docker-compose ps
+
+\\wsl.localhost\docker-desktop\mnt\docker-desktop-disk\data\docker\volumes
 ```
 
 ## 3. Environment variables
