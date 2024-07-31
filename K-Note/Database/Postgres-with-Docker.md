@@ -32,42 +32,42 @@ docker-compose.yml
 ```yml
 name: test_db
 services:
-	postgres_16:
-		image: postgres:16
-		restart: always
-		ports:
-		  - '5432:5432'
-		environment:
-			POSTGRES_PASSWORD: 'postgres'
-		volumes:
+    postgres_16:
+        image: postgres:16
+        restart: always
+        ports:
+          - '5432:5432'
+        environment:
+            POSTGRES_PASSWORD: 'postgres'
+        volumes:
           - postgres_data:/var/lib/postgresql/data # Create in volume
           # - ./postgres_data:/var/lib/postgresql/data # Create in current directory
-		networks: 
-			- my-net
-		healthcheck:
-			test: ["CMD-SHELL", "pg_isready -d postgres -U postgres"]
-			interval: 1s
-			timeout: 5s
-			retries: 10
-	pgadmin_4:
-		image: dpage/pgadmin4:8.10
-    	restart: always
-	    ports:
-	      - '80:80'
-		environment:
-			PGADMIN_DEFAULT_EMAIL: 'admin@domain.com'
-			PGADMIN_DEFAULT_PASSWORD: 'admin'
-		networks: 
-			- my-net
-	    depends_on:
-	     	postgres_16:
-				condition: service_healthy
+        networks: 
+            - my-net
+        healthcheck:
+            test: ["CMD-SHELL", "pg_isready -d postgres -U postgres"]
+            interval: 1s
+            timeout: 5s
+            retries: 10
+    pgadmin_4:
+        image: dpage/pgadmin4:8.10
+        restart: always
+        ports:
+          - '80:80'
+        environment:
+            PGADMIN_DEFAULT_EMAIL: 'admin@domain.com'
+            PGADMIN_DEFAULT_PASSWORD: 'admin'
+        networks: 
+            - my-net
+        depends_on:
+             postgres_16:
+                condition: service_healthy
 
 volumes:
-	postgres_data:
+    postgres_data:
 
 networks: 
-	my-net:
+    my-net:
 ```
 
 Build Image
