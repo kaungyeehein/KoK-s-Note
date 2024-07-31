@@ -2,9 +2,12 @@
 
 ## 1. Docker command
 ```
+docker network create --driver bridge my-net
+
 docker pull postgres:16
 docker volume create postgres_data
 docker run --name postgres_16 \
+    --net my-net \
 	-p 5432:5432 \
 	-e POSTGRES_PASSWORD=postgres \
 	-v postgres_data:/var/lib/postgresql/data \
@@ -13,6 +16,7 @@ docker ps
 
 docker pull dpage/pgadmin4:8.10
 docker run --name pgadmin_4 \
+    --net my-net \
 	-p 80:80 \
     -e 'PGADMIN_DEFAULT_EMAIL=admin@domain.com' \
     -e 'PGADMIN_DEFAULT_PASSWORD=admin' \
@@ -28,46 +32,35 @@ password: admin
 
 ## 2. Docker Compose
 
-docker-compose.yml
+compose.yaml
 ```yml
-name: test_db
+name: myapp
+
 services:
-    postgres_16:
-        image: postgres:16
-        restart: always
-        ports:
-          - '5432:5432'
-        environment:
-            POSTGRES_PASSWORD: 'postgres'
-        volumes:
-          - postgres_data:/var/lib/postgresql/data # Create in volume
-          # - ./postgres_data:/var/lib/postgresql/data # Create in current directory
-        networks: 
-            - my-net
-        healthcheck:
-            test: ["CMD-SHELL", "pg_isready -d postgres -U postgres"]
-            interval: 1s
-            timeout: 5s
-            retries: 10
-    pgadmin_4:
-        image: dpage/pgadmin4:8.10
-        restart: always
-        ports:
-          - '80:80'
-        environment:
-            PGADMIN_DEFAULT_EMAIL: 'admin@domain.com'
-            PGADMIN_DEFAULT_PASSWORD: 'admin'
-        networks: 
-            - my-net
-        depends_on:
-             postgres_16:
-                condition: service_healthy
+  postgres:
+    image: postgres:16
+    ports:
+      - '5432:5432'
+    environment:
+      POSTGRES_PASSWORD: 'postgres'
+    volumes:
+      - ./postgres_data:/var/lib/postgresql/data # Create in current directory
+    networks:
+      - mynet
+  pgadmin:
+    image: dpage/pgadmin4:8.10
+    ports:
+      - '80:80'
+    environment:
+      PGADMIN_DEFAULT_EMAIL: 'admin@local.com'
+      PGADMIN_DEFAULT_PASSWORD: 'admin'
+    volumes:
+      - ./pgadmin_data:/var/lib/pgadmin # Create in current directory
+    networks:
+      - mynet
 
-volumes:
-    postgres_data:
-
-networks: 
-    my-net:
+networks:
+  mynet:
 ```
 
 Build Image
@@ -115,3 +108,44 @@ Reference:
 - https://github.com/docker/awesome-compose/tree/master/postgresql-pgadmin
 
 
+docker-compose.yml
+```yml
+name: test_db
+services:
+    postgres_16:
+        image: postgres:16
+        restart: always
+        ports:
+          - '5432:5432'
+        environment:
+            POSTGRES_PASSWORD: 'postgres'
+        volumes:
+          - postgres_data:/var/lib/postgresql/data # Create in volume
+          # - ./postgres_data:/var/lib/postgresql/data # Create in current directory
+        networks:
+            - my-net
+        healthcheck:
+            test: ["CMD-SHELL", "pg_isready -d postgres -U postgres"]
+            interval: 1s
+            timeout: 5s
+            retries: 10
+    pgadmin_4:
+        image: dpage/pgadmin4:8.10
+        restart: always
+        ports:
+          - '80:80'
+        environment:
+            PGADMIN_DEFAULT_EMAIL: 'admin@domain.com'
+            PGADMIN_DEFAULT_PASSWORD: 'admin'
+        networks:
+            - my-net
+        depends_on:
+             postgres_16:
+                condition: service_healthy
+
+volumes:
+    postgres_data:
+
+networks:
+    my-net:
+```
