@@ -32,9 +32,9 @@ password: admin
 
 ## 2. Docker Compose
 
-compose.yaml
+compose.yml
 ```yml
-name: myapp
+name: db
 
 services:
   postgres:
@@ -47,6 +47,7 @@ services:
       - ./postgres_data:/var/lib/postgresql/data # Create in current directory
     networks:
       - mynet
+
   pgadmin:
     image: dpage/pgadmin4:8.10
     ports:
@@ -67,11 +68,24 @@ Build Image
 ```shell
 docker-compose build
 docker-compose up -d
+docker-compose -f ./test-db/compose.yml up -d
 docker-compose down
 docker-compose down -v # To delete all data run:
 docker-compose ps
 
 \\wsl.localhost\docker-desktop\mnt\docker-desktop-disk\data\docker\volumes
+```
+
+Export/Import Image
+```
+docker save -o pgadmin4.tar dpage/pgadmin4:8.10
+docker load -i pgadmin4.tar
+```
+
+Link Yaml files
+```yml
+include:
+  - ./test-db/compose.yml # DB Service
 ```
 
 ## 3. Environment variables
