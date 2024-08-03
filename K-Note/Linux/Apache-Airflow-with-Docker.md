@@ -132,7 +132,7 @@ USER airflow
 ```
 
 Create `docker-compose.yml` in workspace `docker-compose up`
-```
+```yml
 services:
     sleek-airflow:
         image: sleek-airflow:latest
@@ -416,9 +416,49 @@ dag = DAG(
     'taskflow_api',
     default_args={'start_date': days_ago(1)},
     schedule_interval='0 21 * * *',
-    catchup=false
+    catchup=False
 )
 
 with dag:
     load_task = load(validate(transform(extract()))) 
+```
+
+---
+
+## Step 14. Airflow 2 with Postgres 13
+
+docker-compose.yml
+```yml
+name: my-airflow
+
+services:
+    postgres:
+        image: postgres:13
+        environment:
+            POSTGRES_USER: airflow
+            POSTGRES_PASSWORD: airflow
+            POSTGRES_DB: airflow
+        volumes:
+          - ./postgres-db:/var/lib/postgresql/
+        restart: always
+        healthcheck:
+            test: ["CMD-SHELL", "pg_isready", "-U", "airflow"]
+            interval: 10s
+            retries: 5
+            start_period: 5s
+
+    airflow:
+        image: apache/airflow:2.9.3
+        environment:
+            AIRFLOW__DATABASE__SQL_ALCHEMY_CONN: postgresql+psycopg2://airflow:airflow@postgres/airflow
+            AIRFLOW__CELERY__RESULT_BACKEND: db+postgresql://airflow:airflow@postgres/airflow
+        volumes:
+          - ./airflow:/opt/airflow
+        ports:
+          - "8080:8080"
+        command: airflow standalone
+        restart: always
+        depends_on:
+            postgres:
+                condition: service_healthy
 ```
