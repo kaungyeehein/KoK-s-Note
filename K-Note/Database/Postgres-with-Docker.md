@@ -37,31 +37,31 @@ compose.yml
 name: db
 
 services:
-  postgres:
-    image: postgres:16
-    ports:
-      - '5432:5432'
-    environment:
-      POSTGRES_PASSWORD: 'postgres'
-    volumes:
-      - ./postgres_data:/var/lib/postgresql/data # Create in current directory
-    networks:
-      - mynet
+    postgres:
+        image: postgres:16
+        ports:
+          - '5432:5432'
+        environment:
+            POSTGRES_PASSWORD: 'postgres'
+        volumes:
+          - ./postgres_data:/var/lib/postgresql/data # Create in current directory
+        networks:
+          - mynet
 
-  pgadmin:
-    image: dpage/pgadmin4:8.10
-    ports:
-      - '80:80'
-    environment:
-      PGADMIN_DEFAULT_EMAIL: 'admin@local.com'
-      PGADMIN_DEFAULT_PASSWORD: 'admin'
-    volumes:
-      - ./pgadmin_data:/var/lib/pgadmin # Create in current directory
-    networks:
-      - mynet
+    pgadmin:
+        image: dpage/pgadmin4:8.10
+        ports:
+          - '80:80'
+        environment:
+            PGADMIN_DEFAULT_EMAIL: 'admin@local.com'
+            PGADMIN_DEFAULT_PASSWORD: 'admin'
+        volumes:
+          - ./pgadmin_data:/var/lib/pgadmin # Create in current directory
+        networks:
+          - mynet
 
 networks:
-  mynet:
+    mynet:
 ```
 
 Build Image
@@ -151,6 +151,8 @@ services:
         environment:
             PGADMIN_DEFAULT_EMAIL: 'admin@domain.com'
             PGADMIN_DEFAULT_PASSWORD: 'admin'
+        volumes:
+          - ./pgadmin_data:/var/lib/pgadmin
         networks:
             - my-net
         depends_on:

@@ -119,7 +119,7 @@ What is DAG in Airflow?
 
 Install VSCode with plugin `Docker` & `Python` from Microsoft
 
-Create `dockerfile` in workspace `docker build -t sleek-airflow .`
+Create `Dockerfile` in workspace `docker build -t sleek-airflow .`
 ```
 FROM apache/airflow:2.9.3
 
@@ -248,7 +248,7 @@ Dependencies can define with
 
 Check required provider's packages at `https://airflow.apache.org/docs/apache-airflow-providers/packages-ref.html`
 
-Add `dockerfile` at last line
+Add `Dockerfile` at last line
 ```
 # Install the Github provider package
 RUN pip install apache-airflow-providers-github
@@ -256,7 +256,7 @@ RUN pip install apache-airflow-providers-github
 
 Or can add with `requirements.txt`.
 
-dockerfile
+Dockerfile
 ```
 # Install provider packages from requirements.txt
 COPY requirements.txt /tmp/requirements.txt
@@ -391,6 +391,9 @@ Build in Decorator
 - `@task.kubernetes()`: Creates KubernetesPodOperator task
 - `@task.branch()`: Creates a branch based on condition
 
+Create DAG file in `airflow/dags` directory.
+
+taskflow_api.py
 ```
 from airflow import DAG
 from airflow.decorators import task
@@ -427,6 +430,25 @@ with dag:
 
 ## Step 14. Airflow 2 with Postgres 13
 
+Dockerfile
+```
+FROM apache/airflow:2.9.3
+
+USER root
+RUN apt-get update && \
+    apt-get -y install git && \
+    apt-get clean
+
+USER airflow
+RUN pip install --upgrade pip
+RUN pip install --trusted-host=pypi.python.org --trusted-host=pypi.org --trusted-host=files.pythonhosted.org apache-airflow-providers-github
+```
+
+Create docker image for `docker-composer.yml`
+```
+docker build -f Dockerfile -t my-airflow .
+```
+
 docker-compose.yml
 ```yml
 name: my-airflow
@@ -439,23 +461,18 @@ services:
             POSTGRES_PASSWORD: airflow
             POSTGRES_DB: airflow
         volumes:
-          - ./postgres-db:/var/lib/postgresql/
+          - ./postgres:/var/lib/postgresql/data
 
     airflow:
-        image: apache/airflow:2.9.3
+        image: my-airflow:latest
         environment:
+            AIRFLOW__CORE__EXECUTOR: LocalExecutor
             AIRFLOW__DATABASE__SQL_ALCHEMY_CONN: postgresql+psycopg2://airflow:airflow@postgres/airflow
-            AIRFLOW__CELERY__RESULT_BACKEND: db+postgresql://airflow:airflow@postgres/airflow
-            _AIRFLOW_DB_MIGRATE: 'true'
-            _AIRFLOW_WWW_USER_CREATE: 'true'
-            _AIRFLOW_WWW_USER_USERNAME: airflow
-            _AIRFLOW_WWW_USER_PASSWORD: airflow
         volumes:
           - ./airflow:/opt/airflow
         ports:
           - "8080:8080"
         command: airflow standalone
-        restart: always
         depends_on:
           - postgres
 ```
