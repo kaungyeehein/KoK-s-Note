@@ -476,3 +476,12 @@ services:
         depends_on:
           - postgres
 ```
+
+Create docker container with `docker-compose`
+```
+docker-compose up -d      # Run in background
+docker-compose down -v    # Recreate anonymous volume
+```
+
+> Login to `http://localhost:8080` with username `admin` and password is generated in `airflow/standalone_admin_password.txt`
+
