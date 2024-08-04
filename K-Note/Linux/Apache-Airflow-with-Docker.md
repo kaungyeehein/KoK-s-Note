@@ -440,18 +440,16 @@ services:
             POSTGRES_DB: airflow
         volumes:
           - ./postgres-db:/var/lib/postgresql/
-        restart: always
-        healthcheck:
-            test: ["CMD-SHELL", "pg_isready", "-U", "airflow"]
-            interval: 10s
-            retries: 5
-            start_period: 5s
 
     airflow:
         image: apache/airflow:2.9.3
         environment:
             AIRFLOW__DATABASE__SQL_ALCHEMY_CONN: postgresql+psycopg2://airflow:airflow@postgres/airflow
             AIRFLOW__CELERY__RESULT_BACKEND: db+postgresql://airflow:airflow@postgres/airflow
+            _AIRFLOW_DB_MIGRATE: 'true'
+            _AIRFLOW_WWW_USER_CREATE: 'true'
+            _AIRFLOW_WWW_USER_USERNAME: airflow
+            _AIRFLOW_WWW_USER_PASSWORD: airflow
         volumes:
           - ./airflow:/opt/airflow
         ports:
@@ -459,6 +457,5 @@ services:
         command: airflow standalone
         restart: always
         depends_on:
-            postgres:
-                condition: service_healthy
+          - postgres
 ```
