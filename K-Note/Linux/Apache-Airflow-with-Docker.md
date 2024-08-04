@@ -456,6 +456,8 @@ name: my-airflow
 services:
     postgres:
         image: postgres:13
+        ports:
+          - '5432:5432'
         environment:
             POSTGRES_USER: airflow
             POSTGRES_PASSWORD: airflow
@@ -475,6 +477,16 @@ services:
         command: airflow standalone
         depends_on:
           - postgres
+
+    pgadmin:
+        image: dpage/pgadmin4:8.10
+        ports:
+          - '80:80'
+        environment:
+            PGADMIN_DEFAULT_EMAIL: 'admin@local.com'
+            PGADMIN_DEFAULT_PASSWORD: 'admin'
+        volumes:
+          - ./pgadmin:/var/lib/pgadmin
 ```
 
 Create docker container with `docker-compose`
