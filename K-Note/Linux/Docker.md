@@ -157,6 +157,11 @@ Build Image
 docker build -t flaskapp .
 ```
 
+Export/Import Image
+```
+docker save -o pgadmin4.tar dpage/pgadmin4:8.10
+docker load -i pgadmin4.tar
+```
 ---
 
 ## Chapter 8: Docker Compose
@@ -165,37 +170,37 @@ docker-compose.yml
 ```yml
 version: '3.3' 
 services:
-	wordpress:
-		image: wordpress 
-		depends_on:
-			- mysql ports:
-			- 8080:80 
-		environment:
-			WORDPRESS_DB_HOST: mysql 
-			WORDPRESS_DB_NAME: wordpress 
-			WORDPRESS_DB_USER: wordpress 
-			WORDPRESS_DB_PASSWORD: wordpress
-		volumes:
-			- ./wordpress-data:/var/www/html
-		networks: 
-			- my-net
-	mysql:
-		image: mariadb 
-		environment:
-			MYSQL_ROOT_PASSWORD: wordpress 
-			MYSQL_DATABASE: wordpress 
-			MYSQL_USER: wordpress 
-			MYSQL_PASSWORD: wordpress
-		volumes:
-			- mysql-data:/var/lib/mysql
-		networks: 
-			- my-net
+    wordpress:
+        image: wordpress 
+        depends_on:
+         - mysql ports:
+         - 8080:80 
+        environment:
+            WORDPRESS_DB_HOST: mysql 
+            WORDPRESS_DB_NAME: wordpress 
+            WORDPRESS_DB_USER: wordpress 
+            WORDPRESS_DB_PASSWORD: wordpress
+        volumes:
+         - ./wordpress-data:/var/www/html
+        networks:
+         - my-net
+    mysql:
+        image: mariadb 
+        environment:
+            MYSQL_ROOT_PASSWORD: wordpress 
+            MYSQL_DATABASE: wordpress 
+            MYSQL_USER: wordpress 
+            MYSQL_PASSWORD: wordpress
+        volumes:
+         - mysql-data:/var/lib/mysql
+        networks: 
+         - my-net
 
 volumes: 
-	mysql-data:
+    mysql-data:
 
 networks: 
-	my-net:
+    my-net:
 ```
 
 Build Image
@@ -267,49 +272,49 @@ compose.yml
 ```yml
 version: '3.3' 
 services:
-	wordpress:
-		image: wordpress 
-		depends_on:
-			- mysql 
-		ports:
-			- 80:80
-		deploy:
-			replicas: 2 
-			placement:
-				constraints:
-					- node.role == manager
-		environment:
-			WORDPRESS_DB_HOST: mysql 
-			WORDPRESS_DB_NAME: wordpress 
-			WORDPRESS_DB_USER: wordpress 
-			WORDPRESS_DB_PASSWORD: wordpress
-		volumes:
-			- wordpress-data:/var/www/html
-		networks: 
-			- my-net
-	mysql:
-		image: mariadb 
-		deploy:
-			replicas: 1 
-			placement:
-				constraints:
-					- node.role == worker
-		environment: 
-			MYSQL_ROOT_PASSWORD: wordpress 
-			MYSQL_DATABASE: wordpress 
-			MYSQL_USER: wordpress 
-			MYSQL_PASSWORD: wordpress
-		volumes:
-			- mysql-data:/var/lib/mysql
-		networks: 
-			- my_net
+    wordpress:
+        image: wordpress 
+            depends_on:
+             - mysql 
+            ports:
+             - 80:80
+        deploy:
+            replicas: 2 
+            placement:
+                constraints:
+                 - node.role == manager
+        environment:
+            WORDPRESS_DB_HOST: mysql 
+            WORDPRESS_DB_NAME: wordpress 
+            WORDPRESS_DB_USER: wordpress 
+            WORDPRESS_DB_PASSWORD: wordpress
+        volumes:
+         - wordpress-data:/var/www/html
+        networks: 
+         - my-net
+    mysql:
+        image: mariadb 
+        deploy:
+            replicas: 1 
+            placement:
+                constraints:
+                 - node.role == worker
+        environment: 
+            MYSQL_ROOT_PASSWORD: wordpress 
+            MYSQL_DATABASE: wordpress 
+            MYSQL_USER: wordpress 
+            MYSQL_PASSWORD: wordpress
+        volumes:
+         - mysql-data:/var/lib/mysql
+        networks: 
+         - my_net
 
 networks: 
-	my_net:
+    my_net:
 
 volumes: 
-	mysql-data: 
-	wordpress-data:
+    mysql-data: 
+    wordpress-data:
 ```
 
 Command
