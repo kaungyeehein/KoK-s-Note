@@ -440,8 +440,41 @@ RUN apt-get update && \
     apt-get clean
 
 USER airflow
+
 RUN pip install --upgrade pip
-RUN pip install --trusted-host=pypi.python.org --trusted-host=pypi.org --trusted-host=files.pythonhosted.org apache-airflow-providers-github
+
+# Install provider package from requirements.txt
+COPY requirements.txt /tmp/requirements.txt
+RUN pip install -r /tmp/requirements.txt --trusted-host=pypi.python.org --trusted-host=pypi.org --trusted-host=files.pythonhosted.org
+
+# RUN pip install --trusted-host=pypi.python.org --trusted-host=pypi.org --trusted-host=files.pythonhosted.org apache-airflow-providers-github
+```
+
+requirements.txt
+```
+# Data Analysis
+pandas
+numpy
+scipy
+statsmodels
+dask
+
+# Data Visualization
+matplotlib
+seaborn
+plotly
+bokeh
+altair
+
+# Database
+sqlalchemy
+psycopg2-binary
+
+# Airflow Provider
+apache-airflow-providers-github
+apache-airflow-providers-postgres
+
+# Add more provider package as needed
 ```
 
 Create docker image for `docker-composer.yml`
