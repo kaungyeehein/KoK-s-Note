@@ -134,6 +134,22 @@ Step 5: Run the following to install the dependencies.
 	python.exe -m pip install -r requirements.txt --no-index --find-links wheelhouse
 ```
 
+requirements.txt
+```
+pandas
+numpy
+scipy
+statsmodels
+dask
+matplotlib
+seaborn
+plotly
+bokeh
+altair
+sqlalchemy
+psycopg2-binary
+```
+
 Create `Dockerfile` in workspace `docker build -t sleek-airflow .`
 ```
 FROM apache/airflow:2.9.3
