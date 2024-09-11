@@ -119,6 +119,21 @@ What is DAG in Airflow?
 
 Install VSCode with plugin `Docker` & `Python` from Microsoft
 
+Python offline installation on Windows
+```
+Step 1: Update required library in requirements.txt
+
+Step 2: Create a sub directory named wheelhouse
+
+Step 3: Run the following command to download the required dependencies to the sub directory.
+	python.exe -m pip download -r requirements.txt -d wheelhouse
+
+Step 4: Copy to PC that don't have internet
+
+Step 5: Run the following to install the dependencies.
+	python.exe -m pip install -r requirements.txt --no-index --find-links wheelhouse
+```
+
 Create `Dockerfile` in workspace `docker build -t sleek-airflow .`
 ```
 FROM apache/airflow:2.9.3
