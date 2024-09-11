@@ -492,8 +492,8 @@ services:
         ports:
           - '5432:5432'
         environment:
-            POSTGRES_USER: airflow
-            POSTGRES_PASSWORD: airflow
+            POSTGRES_USER: postgres
+            POSTGRES_PASSWORD: postgres
             POSTGRES_DB: airflow
         volumes:
           - ./postgres:/var/lib/postgresql/data
@@ -502,7 +502,7 @@ services:
         image: my-airflow:latest
         environment:
             AIRFLOW__CORE__EXECUTOR: LocalExecutor
-            AIRFLOW__DATABASE__SQL_ALCHEMY_CONN: postgresql+psycopg2://airflow:airflow@postgres/airflow
+            AIRFLOW__DATABASE__SQL_ALCHEMY_CONN: postgresql+psycopg2://postgres:postgres@postgres/airflow
         volumes:
           - ./airflow:/opt/airflow
         ports:
