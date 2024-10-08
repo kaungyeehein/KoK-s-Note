@@ -136,18 +136,30 @@ Step 5: Run the following to install the dependencies.
 
 requirements.txt
 ```
+# Data Analysis
 pandas
 numpy
 scipy
 statsmodels
 dask
+
+# Data Visualization
 matplotlib
 seaborn
 plotly
 bokeh
 altair
+
+# Database
 sqlalchemy
 psycopg2-binary
+
+# Airflow Provider
+apache-airflow-providers-github
+apache-airflow-providers-postgres
+
+# Add more provider package as needed
+openpyxl
 ```
 
 Create `Dockerfile` in workspace `docker build -t sleek-airflow .`
@@ -561,3 +573,248 @@ docker-compose down -v    # Recreate anonymous volume
 
 > Login to `http://localhost:8080` with username `admin` and password is generated in `airflow/standalone_admin_password.txt`
 
+---
+
+## Step 15. DAG with dynamically mapped task
+
+```
+from airflow import DAG
+from airflow.decorators import task
+from datetime import datetime
+from sqlalchemy import create_engine, MetaData, Table, Column, Integer, Text, DateTime
+from sqlalchemy.dialects.postgresql import UUID, insert
+from sqlalchemy.orm import sessionmaker
+from sqlalchemy.ext.compiler import compiles
+from sqlalchemy.sql import Insert
+import uuid
+import os
+import pytz
+import pandas as pd
+import numpy as np
+
+# Define parameter
+FILES_DIR = '/opt/airflow/data_input/'
+DB_CON = 'postgresql+psycopg2://postgres:postgres@postgres:5432/data_warehouse'
+TABLE_NAME = 'fw_log'
+
+# Define table
+metadata = MetaData()
+fw_table = Table(
+	TABLE_NAME, metadata,
+	Column('id', UUID(as_uuid=True), primary_key=True),
+	Column('time', DateTime),
+	Column('source', Text),
+	Column('source_port', Integer),
+	Column('source_zone', Text),
+	Column('destination', Text),
+	Column('destination_port', Integer),
+	Column('destination_zone', Text),
+	Column('type', Text),
+	Column('interface', Text),
+	Column('interface_direction', Text),
+	Column('direction_of_connection', Text),
+	Column('service_id', Text),
+	Column('action', Text),
+	Column('product_family', Text),
+	Column('blade', Text),
+	Column('access_rule_name', Text),
+	Column('policy_name', Text),
+	Column('service', Text),
+	Column('protocol', Text),
+	Column('origin', Text),
+	Column('syslog_severity', Text),
+	Column('default_device_message', Text),
+	Column('facility', Text),
+	Column('message_information', Text),
+	Column('syslog_date', Text),
+	Column('reason', Text),
+	Column('severity', Text),
+	Column('method', Text),
+	Column('http_status', Integer),
+	Column('description', Text),
+	Column('tcp_flags', Text),
+	Column('attack_information', Text)
+)
+
+###############################################################################
+# DAG with dynamically mapped task
+###############################################################################
+with DAG(
+	dag_id="fw_log_import",
+	start_date=datetime(2024, 9, 1),
+	schedule=None,
+	catchup=False
+):
+
+	# upstream task returning a list or dictionary
+	@task
+	def list_files():
+		"""List all CSV files in the directory."""
+		csv_files = [f for f in os.listdir(FILES_DIR) if f.endswith('.csv')]
+		print(f"Found CSV files: {csv_files}")
+		# Push the list of files to XCom (for sharing between tasks)
+		return csv_files
+		
+	# dynamically mapped task iterating over list returned by an upstream task
+	@task(max_active_tis_per_dagrun=1)
+	def process_file(file_name):
+		print(file_name)
+		"""Process each CSV file."""
+		df = read_csv(file_name)
+		df = create_db(df)
+		result = insert_data(df)
+		finalize_task(file_name)
+		return [file_name] + result
+		
+	create_process_tasks = process_file.partial().expand(file_name=list_files())
+	
+	# optional: having a reducing task after the mapping task
+	@task(trigger_rule='all_done')
+	def get_result(results):
+		print('Header: ["file_name", "total", "success", "skipped"]')
+		count = 0
+		for result in results:
+			count += 1
+			print(f"Result [{count}]: {result}")
+		
+	get_result(create_process_tasks)
+	
+###############################################################################
+# Function read csv
+###############################################################################
+def read_csv(file_name):
+	file_path = os.path.join(FILES_DIR, file_name)
+	# Example: Read the content of the file (Assuming it's a CSV file)
+	with open(file_path, 'r') as f:
+		content = f.read()
+		print(f"Processing file: {file_path}")
+		
+		# print(f"File content:\n{content}")
+		# Read the CSV file into a pandas DataFrame
+		csv_file = file_path
+		
+		# Read columns in csv file
+		org_columns = pd.read_csv(csv_file, nrows=0).columns.tolist()
+		# Change space to underscore and upper case to lower case in header
+		changed_columns = [col.replace(' ', '_').lower() for col in org_columns]
+		
+		print(org_columns)
+		print(changed_columns)
+		
+		# Filter pd data column with specific table column
+		# valid_columns = [col for col in fw_table.columns.keys() if col in org_columns]
+		valid_columns = []
+		for i in range(0, len(fw_table.columns)):
+			for j in range(0, len(changed_columns)):
+				if fw_table.columns.keys()[i] == changed_columns[j]:
+					valid_columns.append(org_columns[j])
+					break
+		
+		print(valid_columns)
+		
+		# Read with dataframe
+		df = pd.read_csv(csv_file, usecols=valid_columns)
+		# Change space to underscore and upper case to lower case in header
+		df.columns = df.columns.str.replace(' ', '_').str.lower()
+		print("CSV data loaded successfully!")
+		
+		# Debug
+		print(fw_table.columns.keys())
+		print(df.columns.tolist())
+		# print(df.iloc[146])
+		
+	return df
+	
+###############################################################################
+# Function create table if require
+###############################################################################
+def create_db(df):
+	# Step 1: Create a connection to the PostgreSQL database
+	engine = create_engine(DB_CON)
+	# Step 2: Create the table in the database
+	metadata.create_all(engine)
+	print("Table with UUID, DateTime, Integer, TEXT columns created successfully!")
+	return df
+	
+###############################################################################
+# Function insert data to database table
+###############################################################################
+def insert_data(df):
+	# Step 1: Create a connection to the PostgreSQL database
+	engine = create_engine(DB_CON)
+	Session = sessionmaker(bind=engine)
+	session = Session()
+	Insert.argument_for('postgresql', 'ignore_duplicates', None)
+	stmt = insert(fw_table, postgresql_ignore_duplicates=True, inline=True)
+
+	# Debug
+	# print(df.iloc[146])
+	
+	# Convert the 'interger' column to an object type (so it can hold None and integers)
+	if 'source_port' in df.columns:
+		df['source_port'] = df['source_port'].astype('object')
+	if 'destination_port' in df.columns:
+		df['destination_port'] = df['destination_port'].astype('object')
+	if 'http_status' in df.columns:
+		df['http_status'] = df['http_status'].astype('object')
+
+	# Replace NaN with None (None translates to NULL in SQL)
+	df = df.where(pd.notnull(df), None)
+	
+	# Debug
+	# print(df.iloc[146])
+	
+	# Chunked Inserts with RETURNING Clause
+	chunk_size = 1000
+	total_inserted_count = 0
+	batch_count = 0
+	
+	for chunk in range(0, len(df), chunk_size):
+		chunk_data = df.iloc[chunk:chunk + chunk_size].to_dict(orient='records')
+
+		# Execute the insert for the chunk
+		result = session.execute(stmt, chunk_data)
+		session.commit()
+
+		# Count the number of inserted rows
+		inserted_count = result.rowcount
+		total_inserted_count += inserted_count
+
+		batch_count += 1
+		print(f"[{batch_count}] Inserted {inserted_count} records in this batch")
+
+	skipped_inserts = len(df) - total_inserted_count
+	print(f"Total successfully inserted records: {total_inserted_count}")
+	print(f"Skipped insert count (due to conflicts): {skipped_inserts}")
+	
+	return [len(df), total_inserted_count, skipped_inserts]
+	
+###############################################################################
+# Function overwrite to ignore_duplicates (insert)
+###############################################################################
+@compiles(Insert, 'postgresql')
+def ignore_duplicates(insert, compiler, **kw):
+	s = compiler.visit_insert(insert, **kw)
+	ignore = insert.kwargs.get('postgresql_ignore_duplicates', False)
+	return s if not ignore else s + ' ON CONFLICT DO NOTHING'
+	
+###############################################################################
+# Function rename to finished csv file
+###############################################################################
+def finalize_task(file_name):
+	# Define the UTC+6:30 timezone
+	utc_plus_630 = pytz.timezone('Asia/Yangon')
+	
+	# Get the current date and time
+	current_time = datetime.now(utc_plus_630).strftime('%Y%m%d_%H%M%S')
+
+	# Create the new file name with the current date and time appended
+	new_file_name = os.path.join(FILES_DIR, current_time + "_" + file_name + "_bk")
+
+	# Rename the file
+	original_file = os.path.join(FILES_DIR, file_name)
+	os.rename(original_file, new_file_name)
+
+	# Print the new file name for confirmation
+	print(f"File renamed to: {new_file_name}")
+```
