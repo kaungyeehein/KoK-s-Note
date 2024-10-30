@@ -475,7 +475,7 @@ with dag:
 
 Dockerfile
 ```
-FROM apache/airflow:2.9.3
+FROM apache/airflow:2.10.2
 
 USER root
 RUN apt-get update && \
@@ -523,7 +523,7 @@ openpyxl
 
 Create docker image for `docker-composer.yml`
 ```
-docker build -f Dockerfile -t my-airflow .
+docker build -f Dockerfile -t my-airflow:2.10.2a .
 ```
 
 docker-compose.yml
@@ -570,6 +570,12 @@ Create docker container with `docker-compose`
 ```
 docker-compose up -d      # Run in background
 docker-compose down -v    # Recreate anonymous volume
+```
+
+Export/Import Image
+```
+docker save -o my-airflow_2.10.2a.tar my-airflow:2.10.2a
+docker load -i my-airflow_2.10.2a.tar
 ```
 
 > Login to `http://localhost:8080` with username `admin` and password is generated in `airflow/standalone_admin_password.txt`
