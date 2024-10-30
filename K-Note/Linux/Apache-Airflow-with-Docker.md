@@ -518,6 +518,7 @@ apache-airflow-providers-github
 apache-airflow-providers-postgres
 
 # Add more provider package as needed
+openpyxl
 ```
 
 Create docker image for `docker-composer.yml`
